@@ -1,0 +1,2 @@
+# AliyunGradleConfig
+在天朝使用jcenter、mavenCentral及google三个远程仓库，Gradle Sync太慢？一招教你优先用阿里云镜像源
