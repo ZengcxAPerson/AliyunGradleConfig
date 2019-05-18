@@ -1,0 +1,44 @@
+apply plugin: 'com.android.application'
+
+ext {
+    //重写已声明的自定义属性
+    isLibrary = false
+}
+
+android {
+
+    buildTypes {
+        release {
+            //是否zip优化
+            zipAlignEnabled true
+            //是否移除无用的资源：工具栏->Refactor->Remove Unused Resources
+            shrinkResources false
+            //是否混淆
+            minifyEnabled true
+            //混淆配置文件
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+
+    //状态栏适配
+    implementation 'com.jaeger.statusbarutil:library:1.5.1'
+    //常用工具类
+    implementation 'com.blankj:utilcode:1.23.7'
+    //JSON解析
+    implementation "com.google.code.gson:gson:${gsonVersion}"
+    //动态权限处理
+    implementation 'com.yanzhenjie.permission:support:2.0.1'
+
+    implementation project(':Toolkit')
+    //implementation project(':Popup')
+    //implementation project(':WheelView')
+    implementation project(':WheelPicker')
+    implementation project(':FilePicker')
+    implementation project(':ColorPicker')
+    implementation project(':CalendarPicker')
+
+}

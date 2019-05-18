@@ -1,0 +1,79 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+apply from: "${rootDir}/version.gradle"
+
+buildscript {
+    repositories {
+        //仓库源是从上往下寻找的，优先从阿里云镜像仓库获取
+        maven {
+            url 'https://maven.aliyun.com/repository/jcenter'
+        }
+        maven {
+            url 'https://maven.aliyun.com/repository/google'
+        }
+        jcenter()
+        google()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.4.1'
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
+    }
+}
+
+allprojects {
+
+    repositories {
+
+        //项目里的aar文件
+        flatDir {
+            dirs "libs"/*, "${rootDir}/{ModuleName}/libs"*/
+        }
+
+        //Gradle Sync太慢？优先使用阿里云仓库服务
+        maven {
+            url 'https://maven.aliyun.com/repository/jcenter'
+        }
+        maven {
+            url 'https://maven.aliyun.com/repository/central'
+        }
+        maven {
+            url 'https://maven.aliyun.com/repository/google'
+        }
+
+        //JitPack提供的Maven仓库
+        maven {
+            url "https://jitpack.io"
+        }
+
+        //本地的Maven仓库：{USER_HOME}/.m2/repository，如C:/Users/Administrator/.m2/repository
+        mavenLocal()
+
+        //JFrog公司提供的Maven仓库：https://jcenter.bintray.com
+        jcenter()
+
+        //Sonatype公司提供的Maven仓库：http://central.maven.org/maven2
+        mavenCentral()
+
+        //谷歌公司提供的Maven仓库：https://maven.google.com
+        google()
+
+    }
+
+}
+
+subprojects {
+    afterEvaluate { def project ->
+        ext.pluginContainer = project.getPlugins()
+        def hasAppPlugin = ext.pluginContainer.hasPlugin("com.android.application")
+        def hasLibPlugin = ext.pluginContainer.hasPlugin("com.android.library")
+        if (hasAppPlugin || hasLibPlugin) {
+            configure(project) {
+                apply from: "${rootDir}/common.gradle"
+                if (hasLibPlugin) {
+                    apply from: "${rootDir}/publish.gradle"
+                }
+            }
+        }
+    }
+}
+

@@ -1,0 +1,18 @@
+// 版本配置
+ext {
+
+    // 安卓SDK工具版本
+    buildToolsVersion = "28.0.3"
+    // 安卓SDK版本，《中国绿色App公约》规定应用应基于Android8.0（API等级26）及以上版本开发
+    targetSdkVersion = 28
+    compileSdkVersion = 28
+    minSdkVersion = 17
+    // 版本号格式为“yyMMdd”版本名格式为“Major.Minor.Revision”
+    appVersionCode = 190515
+    appVersionName = "2.0.0"
+    // 安卓官方支持包版本
+    supportVersion = '28.0.0'
+    // 谷歌的gson版本
+    gsonVersion = '2.8.5'
+
+}
