@@ -1,6 +1,5 @@
 
 在天朝使用jcenter、mavenCentral及google三个远程仓库，Gradle Sync会很慢，google仓库甚至需要[科学上网](https://github.com/hugetiny/awesome-vpn)才能访问。为了加快Gradle Sync速度，一招教你优先用 [阿里云仓库服务](https://maven.aliyun.com/mvn/view) 的仓库作为下载源。
-[![996.icu](https://img.shields.io/badge/link-996.icu-red.svg)](https://996.icu)
 [![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)
 
 ### Maven仓库列表
@@ -55,16 +54,10 @@
 </table>
 
 ### 阿里云镜像源配置
-在项目根目录下的`build.gradle`的`buildscript.repositories`及`allprojects.repositories`闭包内的最前面添加阿里云的仓库地址：    
+在项目根目录下的`build.gradle`的`allprojects.repositories`闭包内的最前面添加阿里云的仓库地址：    
 ```groovy
 buildscript {
     repositories {
-        maven {
-            url 'https://maven.aliyun.com/repository/jcenter'
-        }
-        maven {
-            url 'https://maven.aliyun.com/repository/google'
-        }
         jcenter()
         google()
     }
