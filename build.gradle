@@ -3,13 +3,6 @@ apply from: "${rootDir}/version.gradle"
 
 buildscript {
     repositories {
-        //仓库源是从上往下寻找的，优先从阿里云镜像仓库获取
-        maven {
-            url 'https://maven.aliyun.com/repository/jcenter'
-        }
-        maven {
-            url 'https://maven.aliyun.com/repository/google'
-        }
         jcenter()
         google()
     }
