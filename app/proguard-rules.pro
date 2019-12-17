@@ -1,55 +1,51 @@
--optimizationpasses 5
--dontusemixedcaseclassnames
--dontskipnonpubliclibraryclasses
--dontpreverify
--verbose
--optimizations !code/simplification/arithmetic,!field/*,!class/merging/*
+#################
+#项目自定义混淆配置
+#################
 
--keep public class * extends android.app.Activity
--keep public class * extends android.app.Application
--keep public class * extends android.app.Service
--keep public class * extends android.content.BroadcastReceiver
--keep public class * extends android.content.ContentProvider
--keep public class * extends android.app.backup.BackupAgentHelper
--keep public class * extends android.preference.Preference
--keep public class com.android.vending.licensing.ILicensingService
+# Android支持包
+-dontwarn android.**
+-keep class android.** { *; }
+-keep interface androidx.** { *; }
+-dontwarn androidx.**
+-keep class androidx.** { *; }
+-keep interface androidx.** { *; }
+-keep public class * extends androidx.**
+-dontwarn com.google.android.material.**
+-dontnote com.google.android.material.**
+-keep class com.google.android.material.** { *; }
 
--keepclasseswithmembernames class * {
-    native <methods>;
-}
--keepclasseswithmembers class * {
-    public <init>(android.content.Context, android.util.AttributeSet);
-}
+# 保持R文件不被混淆，否则你的反射是获取不到资源的
+-keep class **.R$* { *; }
+-keep class **.R$** { *; }
 
--keepclasseswithmembers class * {
-    public <init>(android.content.Context, android.util.AttributeSet, int);
-}
--keepclassmembers class * extends android.app.Activity {
-   public void *(android.view.View);
-}
--keepclassmembers enum * {
-    public static **[] values();
-    public static ** valueOf(java.lang.String);
-}
--keep class * implements android.os.Parcelable {
-    public static final android.os.Parcelable$Creator *;
-}
--keep class * extends java.io.Serializable {
-    *;
-}
--keep class * extends java.lang.annotation.Annotation {
-    *;
-}
+# Apache HttpClient (如QQ互联会用到)
+-dontwarn org.apache.http.**
+-keep class org.apache.http.** { *; }
 
-#使用fastjson，不能混淆泛型和注解
--keepattributes Exceptions,InnerClasses,Signature
--keepattributes *Annotation*
+# 微信SDK && QQ SDK
+-dontwarn com.tencent.**
+-keep class com.tencent.** {  *; }
+-keep interface com.tencent.** {  *; }
 
--keep class **.R$* {
-    *;
-}
+# gson && protob
+-dontwarn com.google.gson.**
+-dontwarn com.google.protobuf.**
+-keep class sun.misc.Unsafe { *; }
+-keep class com.google.gson.stream.** { *; }
+-keep class com.google.protobuf.** {*;}
 
--dontwarn android.support.**
--keep class android.support.v4.** { *; }
+# okhttp && okio
+-keep class com.squareup.okhttp.** { *; }
+-keep interface com.squareup.okhttp.** { *; }
+-dontwarn com.squareup.okhttp.**
+-keep class okhttp3.** { *; }
+-keep interface okhttp3.** { *; }
+-dontwarn okhttp3.**
+-keep class sun.misc.Unsafe { *; }
+-dontwarn java.nio.file.*
+-dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
+-dontwarn okio.**
 
-#不混淆JavaBean及数据库实体类，防止影响序列化和反序列化
+# sqlite
+-keep class org.sqlite.** { *; }
+-keep class org.sqlite.database.** { *; }

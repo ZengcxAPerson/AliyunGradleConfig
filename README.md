@@ -5,7 +5,7 @@
 ### 一劳永逸之道
 
 将本项目的[grdadle/init.d/init.gradle](/gradle/init.d/init.gradle)复制到`USER_HOME/.gradle/`下即可。
-`USER_HOME`在Windows上大约为`C:/Users/liyujiang/`，在Linux上大约为`/home/liyujiang/.gradle/`。   
+`USER_HOME`在Windows上大约为`C:/Users/liyujiang/.gradle/`，在Linux上大约为`/home/liyujiang/.gradle/`。   
 `init.d/init.gradle`内容为：
 ```gradle
 buildscript {
