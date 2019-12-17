@@ -4,7 +4,7 @@
 
 ### 一劳永逸之道
 
-将本项目的`[init.d/init.gradle](/grdadle/init.d/init.gradle)`复制到`USER_HOME/.gradle/`下即可。
+将本项目的[init.d/init.gradle](/grdadle/init.d/init.gradle)复制到`USER_HOME/.gradle/`下即可。
 `USER_HOME`在Windows上大约为`C:/Users/liyujiang/`，在Linux上大约为`/home/liyujiang/.gradle/`。
 
 ### Maven仓库列表
