@@ -2,6 +2,11 @@
 在天朝使用jcenter、mavenCentral及google三个远程仓库，Gradle Sync会很慢，google仓库甚至需要[科学上网](https://github.com/hugetiny/awesome-vpn)才能访问。为了加快Gradle Sync速度，一招教你优先用 [阿里云仓库服务](https://maven.aliyun.com/mvn/view) 的仓库作为下载源。
 [![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)
 
+### 一劳永逸之道
+
+将本项目的`[init.d/init.gradle](/grdadle/init.d/init.gradle)`复制到`USER_HOME/.gradle/`下即可。
+`USER_HOME`在Windows上大约为`C:/Users/liyujiang/`，在Linux上大约为`/home/liyujiang/.gradle/`。
+
 ### Maven仓库列表
 <table>
     <tr>

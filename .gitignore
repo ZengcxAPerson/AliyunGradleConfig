@@ -1,7 +1,6 @@
 # Ignore IDE (Intellij IDEA, Android Studio, etc.)
 .idea
-/build
-/*/build
+**/build
 *.iml
 local.properties
 
@@ -13,3 +12,10 @@ gradle-app.setting
 # Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
 #!gradle-wrapper.jar
 !gradle/wrapper
+
+# Ignore VSCode
+!.vscode
+.vscode/settings.json
+**/.project
+**/.claspath
+**/.settings
