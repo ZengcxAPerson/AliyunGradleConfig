@@ -1,5 +1,8 @@
 # 安卓项目工程模板
 
+[![travis-ci](https://travis-ci.org/gzu-liyujiang/AliyunGradleConfig.svg?branch=master)](https://travis-ci.org/gzu-liyujiang/AliyunGradleConfig)
+[![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)
+
 - 阿里云远程仓库加速
 - 发布到maven仓库
 - 代码混淆、资源混淆
@@ -16,7 +19,6 @@
 - gradle/resguard.gradle Gradle项目资源文件混淆配置管理
 
 在天朝使用jcenter、mavenCentral及google三个远程仓库，Gradle Sync会很慢，google仓库甚至需要[科学上网](https://github.com/hugetiny/awesome-vpn)才能访问。为了加快Gradle Sync速度，一招教你优先用 [阿里云仓库服务](https://maven.aliyun.com/mvn/view) 的仓库作为下载源。
-[![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)
 
 ### 一劳永逸之道
 
