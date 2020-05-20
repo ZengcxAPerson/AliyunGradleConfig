@@ -53,7 +53,7 @@
 !**/.vscode/launch.json
 !**/.vscode/tasks.json
 **/.project
-**/.claspath
+**/.classpath
 **/.settings
 
 # Flutter/Dart/Pub related
