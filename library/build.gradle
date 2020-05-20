@@ -1,15 +1,13 @@
 apply plugin: 'com.android.library'
 
-ext {
-    isLibrary = true
-    libArtifactId = "CalendarPicker"
-    libVersion = "2.0.0"
-    libDescription = "calendar picker for android"
+android {
+
+    defaultConfig {
+        consumerProguardFiles 'consumer-rules.pro'
+    }
+
 }
 
 dependencies {
-    implementation "com.android.support:support-fragment:${supportVersion}"
-    implementation "com.android.support:recyclerview-v7:${supportVersion}"
-    implementation project(':Toolkit')
-    api project(":Popup")
+    // implementation third-party library
 }

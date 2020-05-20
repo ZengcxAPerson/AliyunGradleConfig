@@ -1,3 +1,9 @@
+# 安卓项目工程模板
+
+- 阿里云远程仓库加速
+- 发布到maven仓库
+- 代码混淆、资源混淆
+- 多渠道自动打包
 
 在天朝使用jcenter、mavenCentral及google三个远程仓库，Gradle Sync会很慢，google仓库甚至需要[科学上网](https://github.com/hugetiny/awesome-vpn)才能访问。为了加快Gradle Sync速度，一招教你优先用 [阿里云仓库服务](https://maven.aliyun.com/mvn/view) 的仓库作为下载源。
 [![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)
@@ -10,16 +16,13 @@
 ```gradle
 buildscript {
     repositories {
-        maven{ url 'https://maven.aliyun.com/repository/public'}
         maven { url 'https://maven.aliyun.com/repositories/jcenter' }
         maven { url 'https://maven.aliyun.com/repositories/google' }
-        maven { url 'https://maven.aliyun.com/repository/central' }
     }
 }
     
 allprojects {
     repositories {
-        maven{ url 'https://maven.aliyun.com/repository/public'}
         maven { url 'https://maven.aliyun.com/repositories/jcenter' }
         maven { url 'https://maven.aliyun.com/repositories/google' }
         maven { url 'https://maven.aliyun.com/repository/central' }
@@ -101,18 +104,16 @@ allprojects {
             url 'https://maven.aliyun.com/repository/google'
         }
         jcenter()
-        mavenCentral()
         google()
+        mavenCentral()
     }
 }
 ```
 
 ### 项目模板文件介绍
-- .gitignore  通用的Gradle项目版本控制文件忽略规则
+- .gitignore  通用的GIT版本控制文件忽略规则
 - .travis.yml  Github项目的特拉维斯持续集成配置
 - app/proguard-rules.pro  通用的混淆规则
 - build.gradle Gradle项目构建管理
-- publish.gradle Gradle项目发布到Maven仓库及上传到jcenter
-- version.gradle Gradle项目依赖项版本统一管理
-- publishToMavenLocal.cmd 一键执行发布Gradle项目到本地的Maven仓库
-- bintrayUpload.cmd 一键执行上传已发布到本地Maven仓库的项目到jcenter
+- gradle/publish.gradle Gradle项目发布到Maven仓库及上传到jcenter
+- gradle/version.gradle Gradle项目依赖项版本统一管理

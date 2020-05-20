@@ -13,7 +13,6 @@
 -dontskipnonpubliclibraryclassmembers # 指定不去忽略非公共库的类成员
 -optimizations !code/simplification/arithmetic,!field/*,!class/merging/* # 谷歌推荐的混淆算法及过滤器，一般不做更改
 
--dump proguard/class_files.txt # apk 包内所有 class 的内部结构
 -printseeds proguard/seeds.txt # 未混淆的类和成员
 -printusage proguard/unused.txt # 列出从 apk 中删除的代码
 -printmapping proguard/mapping.txt # 混淆前后的映射
@@ -37,7 +36,6 @@
 -keep public class * extends android.content.ContentProvider
 -keep public class * extends android.app.backup.BackupAgentHelper
 -keep public class * extends android.preference.Preference
--keep public class * extends android.support.v4.**
 -keep public class com.android.vending.licensing.ILicensingService
 -keep public class * extends android.support.multidex.MultiDexApplication
 -keep public class * extends android.view.View

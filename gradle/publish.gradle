@@ -1,9 +1,45 @@
-//See https://github.com/bintray/gradle-bintray-plugin
+// See https://github.com/bintray/gradle-bintray-plugin
+//
+// 步骤一：打包到{USER_HOME}/.m2/repository
+// ./gradlew build publishToMavenLocal --info
+//
+// 步骤二：上传到JFrog Bintray的Maven仓库，即jcenter
+// ./gradlew bintrayUpload --info
 
 //用于发布项目到maven仓库
 apply plugin: 'maven-publish'
 //用于上传项目到jcenter
 apply plugin: 'com.jfrog.bintray'
+
+//项目发布到Maven仓库的相关信息
+def pomLibGroupName = 'com.github.gzuliyujiang'
+def pomLibArtifactId = 'Logger'
+def pomLibVersion = new Date().format("yyyy.MM.dd")
+def pomLibDescription = 'Log printer'
+def pomSiteUrl = 'https://github.com/liyujiang-gzu/'
+def pomGitUrl = 'https://github.com/gzu-liyujiang/Logger'
+def pomIssueUrl = 'https://github.com/gzu-liyujiang/Logger/issues'
+def pomLicenses = ["MIT"]
+//开发者信息
+def pomDeveloperId = 'liyujiang-gzu'
+def pomDeveloperOrg = 'gzu-liyujiang'
+def pomDeveloperName = '李玉江'
+def pomDeveloperEmail = 'liyujiang_tk@yeah.net'
+
+def bintrayUser = ''
+def bintrayApiKey = ''
+try {
+    // {PROJECT_ROOT}/local.properties
+    Properties localProp = new Properties()
+    localProp.load(project.rootProject.file('local.properties').newDataInputStream())
+    // {USER_HOME}/.gradle/gradle.properties
+    Map rootProp = project.getProperties()
+    //Bintray用户信息
+    bintrayUser = localProp.getProperty('bintray.user', rootProp.get('bintray.user', ''))
+    bintrayApiKey = localProp.getProperty('bintray.apikey', rootProp.get('bintray.apikey', ''))
+} catch (e) {
+    e.printStackTrace()
+}
 
 /**
  * generate xxx-classes.jar
@@ -27,100 +63,82 @@ task sourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
 }
 
-/**
- * generate javadoc
- */
-task javadoc(type: Javadoc) {
-    source = android.sourceSets.main.java.srcDirs
-    //classpath += configurations.compile
-    classpath += configurations.implementation
-    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-    exclude '**/BuildConfig.java'
-    exclude '**/R.java'
-    //ignore error
-    failOnError = false
-}
-
-/**
- * generate xxx-javadoc.jar
- */
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    //classifier = 'javadoc'
-    getArchiveClassifier().set('javadoc')
-    from javadoc.destinationDir
-}
-
-/**
- * javadoc configure
- */
-javadoc {
-    options {
-        encoding "UTF-8"
-        charSet 'UTF-8'
-        author true
-        version true
-        title project.libArtifactId
-    }
-}
+///**
+// * generate javadoc
+// */
+//task javadoc(type: Javadoc) {
+//    source = android.sourceSets.main.java.srcDirs
+//    classpath += configurations.compile
+//    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+//    exclude '**/BuildConfig.java'
+//    exclude '**/R.java'
+//    //ignore error
+//    failOnError = false
+//}
+//
+///**
+// * generate xxx-javadoc.jar
+// */
+//task javadocJar(type: Jar, dependsOn: javadoc) {
+//    //classifier = 'javadoc'
+//    getArchiveClassifier().set('javadoc')
+//    from javadoc.destinationDir
+//}
+//
+///**
+// * javadoc configure
+// */
+//javadoc {
+//    options {
+//        encoding "UTF-8"
+//        charSet 'UTF-8'
+//        author true
+//        version true
+//        title pomLibArtifactId
+//    }
+//}
 
 publishing {
     publications {
         MyPublication(MavenPublication) {
-            group = project.libGroupName
-            version = project.libVersion
-            description = project.libDescription
-
-            artifactId project.libArtifactId
-            artifact "${buildDir}/outputs/aar/${project.libArtifactId}-release.aar"
+            group = pomLibGroupName
+            version = pomLibVersion
+            description = pomLibDescription
+            artifactId pomLibArtifactId
+            artifact "${buildDir}/outputs/aar/${project.archivesBaseName}-release.aar"
             artifact releaseJar
-            artifact javadocJar
+            //artifact javadocJar
             artifact sourcesJar
-
             pom.withXml {
                 def root = asNode()
-                root.appendNode('name', project.libArtifactId)
-                root.appendNode('description', project.libDescription)
-                root.appendNode('url', project.siteUrl)
-
-                def issues = root.appendNode('issueManagement')
-                issues.appendNode('system', 'github')
-                issues.appendNode('url', project.siteUrl)
-
-                def scm = root.appendNode('scm')
-                scm.appendNode('url', project.gitUrl)
-                scm.appendNode('connection', "scm:git:${project.gitUrl}")
-                scm.appendNode('developerConnection', "scm:git:${project.gitUrl}")
-
-                def license = root.appendNode('licenses').appendNode('license')
-                license.appendNode('name', "The Apache Software License, Version 2.0")
-                license.appendNode('url', "http://www.apache.org/licenses/LICENSE-2.0.txt")
-                license.appendNode('distribution', "repo")
-
+                root.appendNode('name', pomLibArtifactId)
+                root.appendNode('description', pomLibDescription)
+                root.appendNode('url', pomSiteUrl)
                 def developer = root.appendNode('developers').appendNode('developer')
-                developer.appendNode('id', project.developerId)
-                developer.appendNode('name', project.developerName)
-                developer.appendNode('email', project.developerEmail)
-
+                developer.appendNode('id', pomDeveloperId)
+                developer.appendNode('name', pomDeveloperName)
+                developer.appendNode('email', pomDeveloperEmail)
                 // Define this explicitly if using implementation or api configurations
                 def dependenciesNode = root['dependencies'][0] ?: root.appendNode('dependencies')
-
                 def addDependency = {
                     // Ensure dependencies such as fileTree are not included.
                     if (it.group && it.name && it.version) {
                         def dependencyNode = dependenciesNode.appendNode('dependency')
                         dependencyNode.appendNode('groupId', it.group)
                         dependencyNode.appendNode('artifactId', it.name)
-                        dependencyNode.appendNode('version', it.version)
+                        if (it.group == pomLibGroupName && it.version == 'unspecified') {
+                            dependencyNode.appendNode('version', pomLibVersion)
+                        } else {
+                            dependencyNode.appendNode('version', it.version)
+                        }
                         if (it.hasProperty('optional') && it.optional) {
                             dependencyNode.appendNode('optional', 'true')
                         }
                     }
                 }
-
                 // Iterate over the implementation dependencies (we don't want the test ones), adding a <dependency> node for each
                 configurations.implementation.allDependencies.each addDependency
                 configurations.api.allDependencies.each addDependency
-
             }
         }
     }
@@ -128,8 +146,8 @@ publishing {
 
 bintray {
 
-    user = propertyHaveBintrayConfigs ? propertyBintrayUser : ""
-    key = propertyHaveBintrayConfigs ? propertyBintrayApiKey : ""
+    user = bintrayUser
+    key = bintrayApiKey
 
     //对应前面的publishing.publications.mavenJava
     publications = ['MyPublication']
@@ -145,19 +163,19 @@ bintray {
         //existing repository in bintray to add the artifacts to (for example: 'generic', 'maven' etc)
         repo = "maven"
         //package name
-        name = project.libArtifactId
+        name = pomLibArtifactId
         //发布到中央仓库上的项目说明
-        desc = project.libDescription
+        desc = pomLibDescription
         //an optional organization name when the repo belongs to one of the user's orgs. If not added will use 'BINTRAY_USER' by default
-        userOrg = project.developerOrg
+        userOrg = pomDeveloperOrg
         //your package licenses (mandatory if the package doesn't exist yet and must be created, and if the package is an OSS package; optional otherwise)
-        licenses = project.licenses
+        licenses = pomLicenses
         //your VCS URL (mandatory if the package doesn't exist yet and must be created, and if the package is an OSS package; optional otherwise)
-        vcsUrl = project.gitUrl
+        vcsUrl = pomGitUrl
         //项目主页
-        websiteUrl = project.siteUrl
+        websiteUrl = pomSiteUrl
         //项目讨论页
-        issueTrackerUrl = project.issueUrl
+        issueTrackerUrl = pomIssueUrl
         publicDownloadNumbers = true
         //Optional Github readme file
         githubReleaseNotesFile = 'README.md'
@@ -165,13 +183,13 @@ bintray {
         //Optional version descriptor
         version {
             //Bintray logical version name
-            name = project.libVersion
+            name = pomLibVersion
             //Optional - Version-specific description
-            desc = project.libDescription
+            desc = pomLibDescription
             //Optional - Date of the version release. 2 possible values: date in the format of 'yyyy-MM-dd'T'HH:mm:ss.SSSZZ' OR a java.util.Date instance
             released = new Date()
             //版本控制Tag名称
-            vcsTag = project.libVersion
+            vcsTag = pomLibVersion
             //Optional configuration for GPG signing
             gpg {
                 //Determines whether to GPG sign the files. The default is false
