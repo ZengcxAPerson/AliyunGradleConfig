@@ -3,16 +3,14 @@ language: android
 sudo: false
 jdk:
   - oraclejdk8
+before_install:
+  - yes | /usr/local/android-sdk/tools/bin/sdkmanager --licenses
 android:
   components:
+    - platform-tools
     - build-tools-29.0.3
     - android-29
-    - extra-android-support
-    - extra-android-m2repository
-  licenses:
-    - 'android-sdk-preview-license-.+'
-    - 'android-sdk-license-.+'
-    - 'google-gdk-license-.+'
+    - extra
 script:
-  - ./gradlew assembleDebug --info
-  #- ./gradlew assembleRelease --info
+  #- ./gradlew assembleDebug --info
+  - ./gradlew assembleRelease --info
