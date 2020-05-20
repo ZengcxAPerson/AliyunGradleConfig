@@ -5,6 +5,16 @@
 - 代码混淆、资源混淆
 - 多渠道自动打包
 
+### 项目模板文件介绍
+
+- .gitignore  通用的GIT版本控制文件忽略规则
+- .travis.yml  Github项目的特拉维斯持续集成配置
+- app/proguard-common.pro  通用的混淆规则
+- app/build.gradle 多渠道打包APK
+- build.gradle Gradle项目构建管理
+- gradle/publish.gradle Gradle项目发布到Maven仓库及上传到jcenter
+- gradle/resguard.gradle Gradle项目资源文件混淆配置管理
+
 在天朝使用jcenter、mavenCentral及google三个远程仓库，Gradle Sync会很慢，google仓库甚至需要[科学上网](https://github.com/hugetiny/awesome-vpn)才能访问。为了加快Gradle Sync速度，一招教你优先用 [阿里云仓库服务](https://maven.aliyun.com/mvn/view) 的仓库作为下载源。
 [![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)
 
@@ -110,10 +120,3 @@ allprojects {
 }
 ```
 
-### 项目模板文件介绍
-- .gitignore  通用的GIT版本控制文件忽略规则
-- .travis.yml  Github项目的特拉维斯持续集成配置
-- app/proguard-rules.pro  通用的混淆规则
-- build.gradle Gradle项目构建管理
-- gradle/publish.gradle Gradle项目发布到Maven仓库及上传到jcenter
-- gradle/version.gradle Gradle项目依赖项版本统一管理
