@@ -106,6 +106,8 @@ buildscript {
 
 allprojects {
     repositories {
+        flatDir { dirs "libs" }
+        mavenLocal()
         maven {
             url 'https://maven.aliyun.com/repository/jcenter'
         }
@@ -117,8 +119,29 @@ allprojects {
         }
         jcenter()
         google()
-        mavenCentral()
     }
 }
 ```
 
+### 项目发布到Maven仓库
+
+项目发布到Maven仓库前，需要基于某个`git commit`创建相应发布版本的`tag`，推送该`tag`才会触发。
+
+- 项目发布到`jitpack`，需要使用github账号[登录到JitPack](https://jitpack.io)，`Look up`相应的库然后去`Get it`。
+- 项目发布到`jcenter`，需要[登录到Bintray](https://bintray.com/login)后选择`maven`创建相应应的包(Add a Package)，修改`publish.gradle`中的以下下信息：
+
+```groovy
+def pomLibGroupName = 'com.github.gzuliyujiang'
+def pomLibArtifactId = '[TODO] Repository Name'
+def pomLibVersion = new Date().format("yyyy.M.d")
+def pomLibDescription = '[TODO] Repository description for Android'
+def pomSiteUrl = 'https://github.com/liyujiang-gzu/[TODO] Repository Name'
+def pomGitUrl = 'https://github.com/gzu-liyujiang/[TODO] Repository Name'
+def pomIssueUrl = 'https://github.com/gzu-liyujiang/[TODO] Repository Name/issues'
+def pomLicenses = ["MIT"]
+//开发者信息
+def pomDeveloperId = 'liyujiang-gzu'
+def pomDeveloperOrg = 'gzu-liyujiang'
+def pomDeveloperName = '李玉江'
+def pomDeveloperEmail = 'liyujiang_tk@yeah.net'
+```
