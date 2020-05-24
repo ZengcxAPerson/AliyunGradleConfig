@@ -9,7 +9,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:3.6.3'
         classpath 'com.tencent.mm:AndResGuard-gradle-plugin:1.2.17'
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.5'
+        classpath 'com.novoda:bintray-release:0.9.2'
     }
 }
 
@@ -45,7 +45,7 @@ subprojects {
             if (hasAppPlugin || hasLibPlugin) {
                 apply from: "${rootDir}/gradle/common.gradle"
             }
-            if (hasAppPlugin) {
+            if (hasAppPlugin && appResGuardEnable.toString().equalsIgnoreCase("true")) {
                 apply from: "${rootDir}/gradle/resguard.gradle"
             }
             if (hasLibPlugin) {
@@ -62,7 +62,7 @@ class BuildTimeListener implements TaskExecutionListener, BuildListener {
     @Override
     void beforeExecute(Task task) {
         timestamp = System.currentTimeMillis()
-        println "beforeExecute" + task.name
+        println "before Execute" + task.name
     }
 
     @Override
@@ -72,14 +72,14 @@ class BuildTimeListener implements TaskExecutionListener, BuildListener {
         if (ms > 1000) {
             times.add([ms, task.path])
         }
-        println "afterExecute ${task.name}"
+        println "after Execute ${task.name}"
         println "UseTimes ${ms} ms"
         println "===================================================="
     }
 
     @Override
     void buildFinished(BuildResult result) {
-        println "buildFinished:"
+        println "build Finished:"
         times.sort { it[0] }
         for (time in times) {
             printf "%7sms  %s\n", time
@@ -88,22 +88,22 @@ class BuildTimeListener implements TaskExecutionListener, BuildListener {
 
     @Override
     void buildStarted(Gradle gradle) {
-        println "buildStarted"
+        println "build Started"
     }
 
     @Override
     void projectsEvaluated(Gradle gradle) {
-        println "projectsEvaluated";
+        println "projects Evaluated";
     }
 
     @Override
     void projectsLoaded(Gradle gradle) {
-        println "projectsLoaded"
+        println "projects Loaded"
     }
 
     @Override
     void settingsEvaluated(Settings settings) {
-        println "settingsEvaluated"
+        println "settings Evaluated"
     }
 }
 
