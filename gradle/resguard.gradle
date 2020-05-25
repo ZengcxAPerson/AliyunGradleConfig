@@ -2,8 +2,6 @@
 
 apply plugin: 'AndResGuard'
 
-def pluginVersion = '1.2.17'
-
 andResGuard {
     File file = new File(rootDir, "resource_mapping.txt")
     mappingFile = file.exists() ? file : null
@@ -100,7 +98,7 @@ andResGuard {
             "resources.arsc"
     ]
     sevenzip {
-        artifact = "com.tencent.mm:SevenZip:${pluginVersion}"
+        artifact = "com.tencent.mm:SevenZip:${appResGuardVersion}"
     }
     /**
      * Optional: if finalApkBackupPath is null, AndResGuard will overwrite final apk

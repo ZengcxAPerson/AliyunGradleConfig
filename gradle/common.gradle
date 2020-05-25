@@ -6,7 +6,6 @@ project.configurations.all {
         force "androidx.annotation:annotation:$androidxCoreVersion"
         force "androidx.collection:collection:$androidxCoreVersion"
         force "androidx.appcompat:appcompat:$androidxCoreVersion"
-        force "androidx.recyclerview:recyclerview:1.0.0"
     }
 }
 
@@ -62,13 +61,11 @@ android {
         exclude 'META-INF/proguard/*'
         exclude 'META-INF/*.version'
         exclude 'androidsupportmultidexversion.txt'
-        exclude 'okhttp3/internal/publicsuffix/publicsuffixes.gz'
         exclude 'LICENSE*'
         exclude 'junit/*/*'
-        //exclude 'META-INF/*.kotlin_module'
-        //exclude 'kotlin/**'
-        //exclude 'assets/libwbsafeedit_x86'
-        //exclude 'assets/libwbsafeedit_x86_64'
+        exclude 'assets/libwbsafeedit_x86'
+        exclude 'assets/libwbsafeedit_x86_64'
+        //exclude 'okhttp3/internal/publicsuffix/publicsuffixes.gz'
     }
 
 }
@@ -78,5 +75,6 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.aar'])
     implementation "androidx.core:core:$androidxCoreVersion"
     implementation "androidx.annotation:annotation:$androidxCoreVersion"
+    implementation "androidx.collection:collection:$androidxCoreVersion"
     annotationProcessor "androidx.annotation:annotation:$androidxCoreVersion"
 }

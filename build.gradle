@@ -8,7 +8,9 @@ buildscript {
 
     dependencies {
         classpath 'com.android.tools.build:gradle:3.6.3'
-        classpath 'com.tencent.mm:AndResGuard-gradle-plugin:1.2.17'
+        if (appResGuardEnable.toString().equalsIgnoreCase("true")) {
+            classpath "com.tencent.mm:AndResGuard-gradle-plugin:${appResGuardVersion}"
+        }
         classpath 'com.novoda:bintray-release:0.9.2'
     }
 }
@@ -16,8 +18,6 @@ buildscript {
 allprojects {
 
     repositories {
-        //项目里的aar文件
-        flatDir { dirs "libs"/*, "${rootDir}/{ModuleName}/libs"*/ }
         //本地的Maven仓库：{USER_HOME}/.m2/repository，如C:/Users/Administrator/.m2/repository
         mavenLocal()
         //JitPack提供的Maven仓库
@@ -28,15 +28,17 @@ allprojects {
         google()
     }
 
-    //增加一些编译选项
-    gradle.projectsEvaluated {
-        tasks.withType(JavaCompile) {
-            options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
-        }
-    }
 }
 
 subprojects {
+
+    gradle.projectsEvaluated {
+        tasks.withType(JavaCompile) {
+            //增加一些编译选项
+            //options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+        }
+    }
+
     afterEvaluate { def project ->
         ext.pluginContainer = project.getPlugins()
         def hasAppPlugin = ext.pluginContainer.hasPlugin("com.android.application")
@@ -53,61 +55,22 @@ subprojects {
             }
         }
     }
-}
 
-class BuildTimeListener implements TaskExecutionListener, BuildListener {
-    private long timestamp;
-    private times = []
-
-    @Override
-    void beforeExecute(Task task) {
-        timestamp = System.currentTimeMillis()
-        println "before Execute" + task.name
-    }
-
-    @Override
-    void afterExecute(Task task, TaskState taskState) {
-        long ms = System.currentTimeMillis() - timestamp;
-        //大于1秒的任务进行记录
-        if (ms > 1000) {
-            times.add([ms, task.path])
-        }
-        println "after Execute ${task.name}"
-        println "UseTimes ${ms} ms"
-        println "===================================================="
-    }
-
-    @Override
-    void buildFinished(BuildResult result) {
-        println "build Finished:"
-        times.sort { it[0] }
-        for (time in times) {
-            printf "%7sms  %s\n", time
+    gradle.settingsEvaluated { settings ->
+        settings.pluginManagement {
+            plugins {
+                id "com.github.hierynomus.license" version "0.15.0"
+            }
+            if (file("$rootDir/LICENSE").exists()) {
+                license {
+                    header = file("$rootDir/LICENSE")
+                    excludes(["**/*.xml"])
+                }
+                preBuild.dependsOn licenseFormat
+            }
         }
     }
-
-    @Override
-    void buildStarted(Gradle gradle) {
-        println "build Started"
-    }
-
-    @Override
-    void projectsEvaluated(Gradle gradle) {
-        println "projects Evaluated";
-    }
-
-    @Override
-    void projectsLoaded(Gradle gradle) {
-        println "projects Loaded"
-    }
-
-    @Override
-    void settingsEvaluated(Settings settings) {
-        println "settings Evaluated"
-    }
 }
-
-project.gradle.addListener(new BuildTimeListener())
 
 task clean(type: Delete) {
     println("********** delete all compile **********")

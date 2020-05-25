@@ -1,5 +1,18 @@
 apply plugin: 'com.android.application'
 
+repositories {
+    google()
+    jcenter()
+    flatDir {
+        //项目里的aar文件
+        dirs "libs"
+    }
+    maven() {
+        //自定义仓库
+        url 'http://oss.jfrog.org/oss-snapshot-local/'
+    }
+}
+
 dependencies {
     implementation project(":library")
     implementation "androidx.appcompat:appcompat:$androidxCoreVersion"
