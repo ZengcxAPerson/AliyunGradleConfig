@@ -131,17 +131,23 @@ allprojects {
 - 项目发布到`jcenter`，需要[登录到Bintray](https://bintray.com/login)后选择`maven`创建相应应的包(Add a Package)，修改`publish.gradle`中的以下下信息：
 
 ```groovy
-def pomLibGroupName = 'com.github.gzuliyujiang'
-def pomLibArtifactId = '[TODO] Repository Name'
-def pomLibVersion = new Date().format("yyyy.M.d")
-def pomLibDescription = '[TODO] Repository description for Android'
-def pomSiteUrl = 'https://github.com/liyujiang-gzu/[TODO] Repository Name'
-def pomGitUrl = 'https://github.com/gzu-liyujiang/[TODO] Repository Name'
-def pomIssueUrl = 'https://github.com/gzu-liyujiang/[TODO] Repository Name/issues'
-def pomLicenses = ["MIT"]
-//开发者信息
-def pomDeveloperId = 'liyujiang-gzu'
-def pomDeveloperOrg = 'gzu-liyujiang'
-def pomDeveloperName = '李玉江'
-def pomDeveloperEmail = 'liyujiang_tk@yeah.net'
+// 参阅 https://github.com/HailouWang/bintray-release/wiki/配置publish闭包
+publish {
+    repoName = "maven"
+    groupId = 'com.github.gzuliyujiang'
+    artifactId = rootProject.name
+    desc = 'TODO description'
+    website = "https://github.com/gzu-liyujiang/${rootProject.name}"
+    repository = "https://github.com/gzu-liyujiang/${rootProject.name}.git"
+    issueTracker = "https://github.com/gzu-liyujiang/${rootProject.name}/issues"
+    licences = ["MIT"]
+    publishVersion = new Date().format("yyyy.M.d")
+    bintrayUser = bintrayUserName
+    bintrayKey = bintrayApiKey
+    userOrg = 'gzu-liyujiang'
+    dryRun = false
+    autoPublish = true
+    override = true
+    sign = false
+}
 ```
