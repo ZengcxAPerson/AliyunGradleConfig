@@ -1,3 +1,6 @@
+/**
+ * Copyright (c) 2019-2020 gzu-liyujiang <1032694760@qq.com>
+ */
 package com.github.gzuliyujiang.demo;
 
 import android.app.Application;

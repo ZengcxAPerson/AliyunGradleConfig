@@ -1,12 +1,10 @@
+plugins {
+    id "com.github.hierynomus.license" version "0.15.0"
+}
+
 apply plugin: 'com.android.application'
 
 repositories {
-    google()
-    jcenter()
-    flatDir {
-        //项目里的aar文件
-        dirs "libs"
-    }
     maven() {
         //自定义仓库
         url 'http://oss.jfrog.org/oss-snapshot-local/'
@@ -147,4 +145,21 @@ android.applicationVariants.all { variant ->
             }
         }
     }
+}
+
+// 在文件头添加版版权声明
+def file = rootProject.file("license/NOTICE")
+println("header file: $file")
+if (file.exists()) {
+    license {
+        header = file
+        includes(["**/*.java", "**/*.groovy"])
+        excludes(["**/*.properties", "**/*.txt", "**/*.conf", "**/*.xml"])
+        exclude "**/*Test.java"
+        exclude "**/*R.java"
+        exclude "**/assets/**"
+        exclude "**/test/**"
+        exclude "**/androidTest/**"
+    }
+    preBuild.dependsOn licenseFormat
 }

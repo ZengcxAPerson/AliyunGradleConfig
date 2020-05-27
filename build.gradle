@@ -20,6 +20,8 @@ allprojects {
     repositories {
         //本地的Maven仓库：{USER_HOME}/.m2/repository，如C:/Users/Administrator/.m2/repository
         mavenLocal()
+        //项目里的aar文件
+        flatDir { dirs "libs" }
         //JitPack提供的Maven仓库
         maven { url "https://jitpack.io" }
         //JFrog公司提供的Maven仓库：https://jcenter.bintray.com
@@ -52,21 +54,6 @@ subprojects {
             }
             if (hasLibPlugin) {
                 apply from: "${rootDir}/gradle/publish.gradle"
-            }
-        }
-    }
-
-    gradle.settingsEvaluated { settings ->
-        settings.pluginManagement {
-            plugins {
-                id "com.github.hierynomus.license" version "0.15.0"
-            }
-            if (file("$rootDir/LICENSE").exists()) {
-                license {
-                    header = file("$rootDir/LICENSE")
-                    excludes(["**/*.xml"])
-                }
-                preBuild.dependsOn licenseFormat
             }
         }
     }
