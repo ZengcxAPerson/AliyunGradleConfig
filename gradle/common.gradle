@@ -18,7 +18,7 @@ android {
         minSdkVersion androidMinSdkVersion as int
         targetSdkVersion androidTargetSdkVersion as int
         versionCode Integer.parseInt(new Date().format("yyyyMMdd"))
-        versionName new Date().format("yyyy.M.d.HH")
+        versionName new Date().format("yyyy.M.d")
     }
 
     sourceSets {
@@ -63,8 +63,8 @@ android {
         exclude 'androidsupportmultidexversion.txt'
         exclude 'LICENSE*'
         exclude 'junit/*/*'
-        exclude 'assets/libwbsafeedit_x86'
-        exclude 'assets/libwbsafeedit_x86_64'
+        //exclude 'assets/libwbsafeedit_x86'
+        //exclude 'assets/libwbsafeedit_x86_64'
         //exclude 'okhttp3/internal/publicsuffix/publicsuffixes.gz'
     }
 
