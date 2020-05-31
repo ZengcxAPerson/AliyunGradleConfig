@@ -1,20 +1,23 @@
 # 安卓项目工程模板
 
 [![travis-ci](https://travis-ci.org/gzu-liyujiang/AliyunGradleConfig.svg?branch=master)](https://travis-ci.org/gzu-liyujiang/AliyunGradleConfig)
-[![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)
+[![MulanPSL](https://img.shields.io/badge/license-MulanPSL-blue.svg)](http://license.coscl.org.cn/MulanPSL)
+[![Anti-996](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)
 
 - 阿里云远程仓库加速
 - 发布到maven仓库
 - 代码混淆、资源混淆
 - 多渠道自动打包
+- Travis持续集成
+- 依赖冲突问题
 
 ### 项目模板文件介绍
 
 - .gitignore  通用的GIT版本控制文件忽略规则
 - .travis.yml  Github项目的特拉维斯持续集成配置
+- build.gradle Gradle项目构建管理
 - app/proguard-common.pro  通用的混淆规则
 - app/build.gradle 多渠道打包APK
-- build.gradle Gradle项目构建管理
 - gradle/publish.gradle Gradle项目发布到Maven仓库及上传到jcenter
 - gradle/resguard.gradle Gradle项目资源文件混淆配置管理
 
@@ -128,26 +131,38 @@ allprojects {
 项目发布到Maven仓库前，需要基于某个`git commit`创建相应发布版本的`tag`，推送该`tag`才会触发。
 
 - 项目发布到`jitpack`，需要使用github账号[登录到JitPack](https://jitpack.io)，`Look up`相应的库然后去`Get it`。
-- 项目发布到`jcenter`，需要[登录到Bintray](https://bintray.com/login)后选择`maven`创建相应应的包(Add a Package)，修改`publish.gradle`中的以下下信息：
+- 项目发布到`jcenter`，需要[登录到Bintray](https://bintray.com/login)后选择`maven`创建相应应的包(Add a Package)。
+- 修改`publish.gradle`中的以下下信息为您自己的：
 
 ```groovy
-// 参阅 https://github.com/HailouWang/bintray-release/wiki/配置publish闭包
-publish {
-    repoName = "maven"
-    groupId = 'com.github.gzuliyujiang'
-    artifactId = rootProject.name
-    desc = 'TODO description'
-    website = "https://github.com/gzu-liyujiang/${rootProject.name}"
-    repository = "https://github.com/gzu-liyujiang/${rootProject.name}.git"
-    issueTracker = "https://github.com/gzu-liyujiang/${rootProject.name}/issues"
-    licences = ["MIT"]
-    publishVersion = new Date().format("yyyy.M.d")
-    bintrayUser = bintrayUserName
-    bintrayKey = bintrayApiKey
-    userOrg = 'gzu-liyujiang'
-    dryRun = false
-    autoPublish = true
-    override = true
-    sign = false
-}
+//项目相关信息
+def pomLibGroupName = 'com.github.gzuliyujiang'
+def pomLibArtifactId = rootProject.name
+def pomLibVersion = new Date().format("yyyy.M.d")
+def pomLibDescription = "TODO description: ${rootProject.name} for Android"
+def pomSiteUrl = "https://github.com/gzu-liyujiang/${rootProject.name}"
+def pomGitUrl = "https://github.com/gzu-liyujiang/${rootProject.name}.git"
+def pomIssueUrl = "https://github.com/gzu-liyujiang/${rootProject.name}/issues"
+def pomReleaseNotesUrl = "https://github.com/gzu-liyujiang/${rootProject.name}/README.md"
+def pomLicenses = ["MIT"]
+//开发者信息
+def pomDeveloperId = 'liyujiang-gzu'
+def pomDeveloperOrg = 'gzu-liyujiang'
+def pomDeveloperName = '李玉江'
+def pomDeveloperEmail = '1032694760@qq.com'
+```
+
+### License
+
+```text
+Copyright (c) 2019-2020 gzu-liyujiang <1032694760@qq.com>
+
+AliyunGradleConfig is licensed under the Mulan PSL v1.
+You can use this software according to the terms and conditions of the Mulan PSL v1.
+You may obtain a copy of Mulan PSL v1 at:
+    http://license.coscl.org.cn/MulanPSL
+THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT, MERCHANTABILITY OR FIT FOR A PARTICULAR
+PURPOSE.
+See the Mulan PSL v1 for more details.
 ```
