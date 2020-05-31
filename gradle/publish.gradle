@@ -45,19 +45,6 @@ try {
 }
 
 /**
- * generate xxx-classes.jar
- */
-task releaseJar(type: Jar) {
-    //classifier = 'classes'
-    getArchiveClassifier().set('classes')
-    from 'build/intermediates/classes/release/'
-    exclude '**/BuildConfig.class', '**/R.class'
-    exclude {
-        it.name.startsWith('R$')
-    }
-}
-
-/**
  * generate xxx-sources.jar
  */
 task sourcesJar(type: Jar) {
@@ -109,7 +96,6 @@ publishing {
             description = pomLibDescription
             artifactId pomLibArtifactId
             artifact "${buildDir}/outputs/aar/${project.archivesBaseName}-release.aar"
-            artifact releaseJar
             //artifact javadocJar
             artifact sourcesJar
             pom.withXml {
