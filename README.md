@@ -25,7 +25,7 @@
 
 ### 一劳永逸之道
 
-将本项目的[grdadle/init.d/init.gradle](/gradle/init.d/init.gradle)复制到`USER_HOME/.gradle/`下即可。
+将本项目的[gradle/init.d/init.gradle](/gradle/init.d/init.gradle)复制到`USER_HOME/.gradle/`下即可。
 `USER_HOME`在Windows上大约为`C:/Users/liyujiang/.gradle/`，在Linux上大约为`/home/liyujiang/.gradle/`。   
 `init.d/init.gradle`内容为：
 ```gradle
@@ -97,34 +97,6 @@ allprojects {
     </tr>
 </table>
 
-### 阿里云镜像源配置
-在项目根目录下的`build.gradle`的`allprojects.repositories`闭包内的最前面添加阿里云的仓库地址：    
-```groovy
-buildscript {
-    repositories {
-        jcenter()
-        google()
-    }
-}
-
-allprojects {
-    repositories {
-        flatDir { dirs "libs" }
-        mavenLocal()
-        maven {
-            url 'https://maven.aliyun.com/repository/jcenter'
-        }
-        maven {
-            url 'https://maven.aliyun.com/repository/central'
-        }
-        maven {
-            url 'https://maven.aliyun.com/repository/google'
-        }
-        jcenter()
-        google()
-    }
-}
-```
 
 ### 项目发布到Maven仓库
 
