@@ -19,7 +19,7 @@ andResGuard {
             // Your icon
             "R.mipmap.ic_launcher*",
             "R.drawable.ic_launcher*",
-            // Umeng sdk
+            // Umeng SDK
             "R.anim.umeng*",
             "R.string.umeng*",
             "R.string.UM*",
@@ -79,9 +79,9 @@ andResGuard {
             "R.drawable.hms_*",
             "R.layout.hms_*",
             "R.id.hms_*",
-            // for fabric
+            // fabric
             "R.string.com.crashlytics.*",
-            // for RongIM(融云)
+            // RongIM(融云)
             "R.dimen.rc_*",
             "R.id.rc_*",
             "R.style.rc_*",
@@ -89,6 +89,16 @@ andResGuard {
             "R.drawable.rc_*",
             "R.layout.rc_*",
             "R.string.rc_*",
+            // ShareSDK
+            "R.id.ssdk*",
+            "R.string.mobcommon*",
+            "R.string.ssdk*",
+            "R.string.mobdemo*",
+            "R.drawable.mobcommon*",
+            "R.drawable.ssdk*",
+            "R.layout.mob*",
+            "R.style.mobcommon*",
+
     ]
     compressFilePattern = [
             "*.png",

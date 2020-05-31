@@ -9,6 +9,15 @@ project.configurations.all {
     }
 }
 
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(dir: 'libs', include: ['*.aar'])
+    implementation "androidx.core:core:$androidxCoreVersion"
+    implementation "androidx.annotation:annotation:$androidxCoreVersion"
+    implementation "androidx.collection:collection:$androidxCoreVersion"
+    annotationProcessor "androidx.annotation:annotation:$androidxCoreVersion"
+}
+
 android {
 
     compileSdkVersion androidCompileSdkVersion as int
@@ -68,13 +77,4 @@ android {
         //exclude 'okhttp3/internal/publicsuffix/publicsuffixes.gz'
     }
 
-}
-
-dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation fileTree(dir: 'libs', include: ['*.aar'])
-    implementation "androidx.core:core:$androidxCoreVersion"
-    implementation "androidx.annotation:annotation:$androidxCoreVersion"
-    implementation "androidx.collection:collection:$androidxCoreVersion"
-    annotationProcessor "androidx.annotation:annotation:$androidxCoreVersion"
 }

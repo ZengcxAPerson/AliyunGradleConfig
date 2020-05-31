@@ -12,5 +12,5 @@ echo "工作目录：${PWD}"
 #==============================================================
 # 以下为自动化构建，当然可考虑使用Github-Actions、Travis-CI等持续集成工具
 #==============================================================
-#gradlew clean cleanBuildCache assembleRelease --info --warning-mode all
-gradlew clean cleanBuildCache resguardRelease --info --warning-mode all
+#./gradlew clean cleanBuildCache assembleRelease --info --warning-mode all
+./gradlew clean cleanBuildCache resguardRelease --info --warning-mode all
