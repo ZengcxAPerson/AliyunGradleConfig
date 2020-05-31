@@ -10,6 +10,24 @@ dependencies {
     implementation 'com.github.gzu-liyujiang:Logger:2020.05.17'
 }
 
+def hasSigningFile = false
+def signingStorePath
+def signingStorePassword
+def signingKeyAlias
+def signingKeyPassword
+try {
+    // {USER_HOME}/.gradle/gradle.properties
+    Map rootProp = project.getProperties()
+    signingStorePath = rootProp.get('signingStorePath', '')
+    signingStorePassword = rootProp.get('signingStorePassword', '')
+    signingKeyAlias = rootProp.get('signingKeyAlias', '')
+    signingKeyPassword = rootProp.get('signingKeyPassword', '')
+    println("signing store file: $signingStoreFile, alias: $signingKeyAlias, password: $signingStorePassword")
+    hasSigningFile = true
+} catch (ignore) {
+    System.err.println('read signing properties failed')
+}
+
 android {
 
     splits {
@@ -31,20 +49,7 @@ android {
         signingConfigs {
             //直接使用真实的密钥库文件，避免微信、高德地图等第三方SDK校验失败
             releaseConfig {
-                def signingStoreFile = project.getParent().file(signingStorePath)
-                try {
-                    // {USER_HOME}/.gradle/gradle.properties
-                    Map rootProp = project.getProperties()
-                    signingStorePath = rootProp.get('signingStorePath', signingStoreFile.getAbsolutePath())
-                    signingStoreFile = new File(signingStorePath)
-                    signingStorePassword = rootProp.get('signingStorePassword', signingStorePassword)
-                    signingKeyAlias = rootProp.get('signingKeyAlias', signingKeyAlias)
-                    signingKeyPassword = rootProp.get('signingKeyPassword', signingKeyPassword)
-                } catch (ignore) {
-                    System.err.println('read signing properties failed')
-                }
-                println("signing store file: $signingStoreFile, alias: $signingKeyAlias, password: $signingStorePassword")
-                storeFile signingStoreFile
+                storeFile new File(signingStorePath)
                 storePassword signingStorePassword
                 keyAlias signingKeyAlias
                 keyPassword signingKeyPassword
@@ -77,7 +82,9 @@ android {
             minifyEnabled true
             //混淆配置文件
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-common.pro', 'proguard-rules.pro'
-            signingConfig signingConfigs.releaseConfig
+            if (hasSigningFile) {
+                signingConfig signingConfigs.releaseConfig
+            }
         }
         //调试版本
         debug {
@@ -86,7 +93,9 @@ android {
             zipAlignEnabled true
             shrinkResources false
             minifyEnabled false
-            signingConfig signingConfigs.releaseConfig
+            if (hasSigningFile) {
+                signingConfig signingConfigs.releaseConfig
+            }
         }
     }
 

@@ -33,6 +33,7 @@ buildscript {
     repositories {
         maven { url 'https://maven.aliyun.com/repositories/jcenter' }
         maven { url 'https://maven.aliyun.com/repositories/google' }
+        maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
     }
 }
     
@@ -44,6 +45,7 @@ allprojects {
         maven { url "https://jitpack.io" }
     }
 }
+
 ```
 
 ### Maven仓库列表
