@@ -28,19 +28,28 @@ android {
         applicationId appPackageName
         //按不同维度打包，必须添加，不添加编译不通过，后面的数值任何字符串都可以
         flavorDimensions "channel"
-
         signingConfigs {
             //直接使用真实的密钥库文件，避免微信、高德地图等第三方SDK校验失败
             releaseConfig {
-                def file = project.getParent().file(signingStorePath)
-                if (file.exists()) {
-                    storeFile file
-                    storePassword signingStorePassword
-                    keyAlias signingKeyAlias
-                    keyPassword signingKeyPassword
-                    v1SigningEnabled true
-                    v2SigningEnabled true
+                def signingStoreFile = project.getParent().file(signingStorePath)
+                try {
+                    // {USER_HOME}/.gradle/gradle.properties
+                    Map rootProp = project.getProperties()
+                    signingStorePath = rootProp.get('signingStorePath', signingStoreFile.getAbsolutePath())
+                    signingStoreFile = new File(signingStorePath)
+                    signingStorePassword = rootProp.get('signingStorePassword', signingStorePassword)
+                    signingKeyAlias = rootProp.get('signingKeyAlias', signingKeyAlias)
+                    signingKeyPassword = rootProp.get('signingKeyPassword', signingKeyPassword)
+                } catch (ignore) {
+                    System.err.println('read signing properties failed')
                 }
+                println("signing store file: $signingStoreFile, alias: $signingKeyAlias, password: $signingStorePassword")
+                storeFile signingStoreFile
+                storePassword signingStorePassword
+                keyAlias signingKeyAlias
+                keyPassword signingKeyPassword
+                v1SigningEnabled true
+                v2SigningEnabled true
             }
         }
         manifestPlaceholders = [
