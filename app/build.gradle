@@ -7,37 +7,19 @@ apply plugin: 'com.android.application'
 dependencies {
     implementation project(":library")
     implementation "androidx.appcompat:appcompat:$androidxCoreVersion"
-    implementation 'com.github.gzu-liyujiang:Logger:2020.05.17'
-}
-
-def hasSigningFile = false
-def signingStorePath
-def signingStorePassword
-def signingKeyAlias
-def signingKeyPassword
-try {
-    // {USER_HOME}/.gradle/gradle.properties
-    Map rootProp = project.getProperties()
-    signingStorePath = rootProp.get('signingStorePath', '')
-    signingStorePassword = rootProp.get('signingStorePassword', '')
-    signingKeyAlias = rootProp.get('signingKeyAlias', '')
-    signingKeyPassword = rootProp.get('signingKeyPassword', '')
-    println("signing store file: $signingStoreFile, alias: $signingKeyAlias, password: $signingStorePassword")
-    hasSigningFile = true
-} catch (ignore) {
-    System.err.println('read signing properties failed')
+    implementation 'com.github.gzu-liyujiang:Logger:2020.05.31'
 }
 
 android {
 
     splits {
         abi {
-            enable true
+            enable false
             reset()
             //支持的CPU架构：armeabi、armeabi-v7a、arm64-v8a、x86、x86_64、mips、mips64
             //目前主流手机都支持armeabi-v7a，armeabi已过时，arm64-v8a是未来的主流，电脑上的模拟器支持x86，mips基本不用于手机
             include 'armeabi-v7a', 'x86'
-            universalApk false
+            universalApk true
         }
     }
 
@@ -49,12 +31,43 @@ android {
         signingConfigs {
             //直接使用真实的密钥库文件，避免微信、高德地图等第三方SDK校验失败
             releaseConfig {
-                storeFile new File(signingStorePath)
-                storePassword signingStorePassword
-                keyAlias signingKeyAlias
-                keyPassword signingKeyPassword
-                v1SigningEnabled true
-                v2SigningEnabled true
+                try {
+                    // {rootProject}/gradle.properties 或  {USER_HOME}/.gradle/gradle.properties
+                    Map rootProp = project.getProperties()
+                    def signingStorePath = rootProp.get('signingStorePath', '')
+                    if (signingStorePath == '') {
+                        throw new Exception('signing store path is empty from global gradle.properties')
+                    }
+                    println("[signing] store file: $signingStorePath")
+                    def signingStorePassword = rootProp.get('signingStorePassword', '')
+                    println("[signing] store password: $signingStorePassword")
+                    def signingKeyAlias = rootProp.get('signingKeyAlias', '')
+                    println("[signing] key alias: $signingKeyAlias")
+                    def signingKeyPassword = rootProp.get('signingKeyPassword', '')
+                    println("[signing] key password: $signingKeyPassword")
+                    storeFile new File(signingStorePath)
+                    storePassword signingStorePassword
+                    keyAlias signingKeyAlias
+                    keyPassword signingKeyPassword
+                    v1SigningEnabled true
+                    v2SigningEnabled true
+                } catch (e) {
+                    System.err.println('[signing] read failed from properties: ' + e.getMessage())
+                    def signingStorePath = project.rootProject.file('app/debug.keystore').getAbsolutePath()
+                    println("[signing] store file: $signingStorePath")
+                    def signingStorePassword = 'android'
+                    println("[signing] store password: $signingStorePassword")
+                    def signingKeyAlias = 'androiddebugkey'
+                    println("[signing] key alias: $signingKeyAlias")
+                    def signingKeyPassword = 'android'
+                    println("[signing] key password: $signingKeyPassword")
+                    storeFile new File(signingStorePath)
+                    storePassword signingStorePassword
+                    keyAlias signingKeyAlias
+                    keyPassword signingKeyPassword
+                    v1SigningEnabled true
+                    v2SigningEnabled true
+                }
             }
         }
         manifestPlaceholders = [
@@ -82,9 +95,7 @@ android {
             minifyEnabled true
             //混淆配置文件
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-common.pro', 'proguard-rules.pro'
-            if (hasSigningFile) {
-                signingConfig signingConfigs.releaseConfig
-            }
+            signingConfig signingConfigs.releaseConfig
         }
         //调试版本
         debug {
@@ -93,9 +104,7 @@ android {
             zipAlignEnabled true
             shrinkResources false
             minifyEnabled false
-            if (hasSigningFile) {
-                signingConfig signingConfigs.releaseConfig
-            }
+            signingConfig signingConfigs.releaseConfig
         }
     }
 
