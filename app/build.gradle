@@ -92,7 +92,7 @@ android {
             //是否混淆
             minifyEnabled true
             //混淆配置文件
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-common.pro', 'proguard-rules.pro'
+            proguardFiles 'proguard-common.pro', 'proguard-rules.pro'
             signingConfig signingConfigs.releaseConfig
         }
         //调试版本
