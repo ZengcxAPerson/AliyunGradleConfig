@@ -22,6 +22,8 @@ android {
 
     compileSdkVersion androidCompileSdkVersion as int
     buildToolsVersion androidBuildToolsVersion
+    // 配置资源名前缀提示，避免资源名重复
+    resourcePrefix rootProject.name
 
     defaultConfig {
         minSdkVersion androidMinSdkVersion as int
@@ -49,6 +51,7 @@ android {
 
     compileOptions {
         encoding 'UTF-8'
+        // jdk 1.8 开始支持 lambda 表达式
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
