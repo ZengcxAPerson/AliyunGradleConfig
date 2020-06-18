@@ -5,6 +5,7 @@
 [![MulanPSL](https://img.shields.io/badge/license-MulanPSL-blue.svg)](http://license.coscl.org.cn/MulanPSL)
 [![Anti-996](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)
 
+详情可查看[模板介绍](https://gzu-liyujiang.github.io/AliyunGradleConfig/)
 ## License
 
 ```text
