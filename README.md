@@ -1,5 +1,6 @@
 # 安卓项目工程模板
 
+![Android CI](https://github.com/gzu-liyujiang/AliyunGradleConfig/workflows/Android%20CI/badge.svg)
 [![travis-ci](https://travis-ci.org/gzu-liyujiang/AliyunGradleConfig.svg?branch=master)](https://travis-ci.org/gzu-liyujiang/AliyunGradleConfig)
 [![MulanPSL](https://img.shields.io/badge/license-MulanPSL-blue.svg)](http://license.coscl.org.cn/MulanPSL)
 [![Anti-996](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)
