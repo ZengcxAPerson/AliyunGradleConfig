@@ -24,6 +24,8 @@ allprojects {
         jcenter()
         //谷歌公司提供的Maven仓库：https://maven.google.com
         google()
+        //Sonatype公司提供的中央库：http://central.maven.org/maven2
+        mavenCentral()
     }
 }
 

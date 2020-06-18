@@ -102,7 +102,7 @@ allprojects {
 
 ### 项目发布到Maven仓库
 
-项目发布到Maven仓库前，需要基于某个`git commit`创建相应发布版本的`tag`，推送该`tag`才会触发。
+手动执行命令`gradlew publishToMavenLocal`可以发布到`mavenLocal()`，手动执行命令`gradlew bintrayPublish`可以发布到`jcenter()`。项目发布到`jitpack`前，需要基于某个`git commit`创建相应发布版本的`tag`，推送该`tag`才会触发`jitpack`的构建。
 
 - 项目发布到`jitpack`，需要使用github账号[登录到JitPack](https://jitpack.io)，`Look up`相应的库然后去`Get it`。
 - 项目发布到`jcenter`，需要[登录到Bintray](https://bintray.com/login)后选择`maven`创建相应应的包(Add a Package)。

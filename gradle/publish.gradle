@@ -51,6 +51,9 @@ task sourcesJar(type: Jar) {
 
 afterEvaluate {
     publishing {
+        repositories {
+            mavenLocal()
+        }
         publications {
             // See https://developer.android.google.cn/studio/build/maven-publish-plugin
             release(MavenPublication) {
