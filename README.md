@@ -1,16 +1,16 @@
 # 安卓项目工程模板
 
-[![Android CI](https://github.com/gzu-liyujiang/AliyunGradleConfig/workflows/Android%20CI/badge.svg)](https://github.com/gzu-liyujiang/AliyunGradleConfig/actions)
+[![Release APK](https://github.com/gzu-liyujiang/AliyunGradleConfig/workflows/Release%20APK/badge.svg)](https://github.com/gzu-liyujiang/AliyunGradleConfig/actions)
 [![Gradle Package](https://github.com/gzu-liyujiang/AliyunGradleConfig/workflows/Gradle%20Package/badge.svg)](https://github.com/gzu-liyujiang/AliyunGradleConfig/actions)
 [![MulanPSL](https://img.shields.io/badge/license-MulanPSL-blue.svg)](http://license.coscl.org.cn/MulanPSL)
 [![Anti-996](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)
 
 - 阿里云远程仓库加速
-- 发布到maven仓库
+- 发布到Maven仓库
 - 代码混淆、资源混淆
 - 多渠道自动打包
-- 持续集成(Github Actions)
-- 依赖冲突问题
+- 自动化工作流：Github Actions
+- 依赖冲突解决
 
 ### 项目模板文件介绍
 
