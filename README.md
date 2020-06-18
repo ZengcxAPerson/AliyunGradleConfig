@@ -1,7 +1,7 @@
 # 安卓项目工程模板
 
-![Android CI](https://github.com/gzu-liyujiang/AliyunGradleConfig/workflows/Android%20CI/badge.svg)
-[![travis-ci](https://travis-ci.org/gzu-liyujiang/AliyunGradleConfig.svg?branch=master)](https://travis-ci.org/gzu-liyujiang/AliyunGradleConfig)
+[![Android CI](https://github.com/gzu-liyujiang/AliyunGradleConfig/workflows/Android%20CI/badge.svg)](https://github.com/gzu-liyujiang/AliyunGradleConfig/actions)
+[![Gradle Package](https://github.com/gzu-liyujiang/AliyunGradleConfig/workflows/Gradle%20Package/badge.svg)](https://github.com/gzu-liyujiang/AliyunGradleConfig/actions)
 [![MulanPSL](https://img.shields.io/badge/license-MulanPSL-blue.svg)](http://license.coscl.org.cn/MulanPSL)
 [![Anti-996](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)
 
@@ -9,13 +9,12 @@
 - 发布到maven仓库
 - 代码混淆、资源混淆
 - 多渠道自动打包
-- Travis持续集成
+- 持续集成(Github Actions)
 - 依赖冲突问题
 
 ### 项目模板文件介绍
 
 - .gitignore  通用的GIT版本控制文件忽略规则
-- .travis.yml  Github项目的特拉维斯持续集成配置
 - build.gradle Gradle项目构建管理
 - app/proguard-common.pro  通用的混淆规则
 - app/build.gradle 多渠道打包APK
