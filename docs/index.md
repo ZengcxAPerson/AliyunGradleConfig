@@ -8,7 +8,7 @@
 - 阿里云远程仓库加速
 - 发布到Maven仓库
 - 代码混淆、资源混淆
-- 多渠道自动打包
+- 多维度打包APK
 - 自动化工作流：Github Actions
 - 依赖冲突解决
 
@@ -17,7 +17,7 @@
 - .gitignore  通用的GIT版本控制文件忽略规则
 - build.gradle Gradle项目构建管理
 - app/proguard-common.pro  通用的混淆规则
-- app/build.gradle 多渠道打包APK
+- app/build.gradle 多维度打包APK
 - gradle/publish.gradle Gradle项目发布到Maven仓库及上传到jcenter
 - gradle/resguard.gradle Gradle项目资源文件混淆配置管理
 
