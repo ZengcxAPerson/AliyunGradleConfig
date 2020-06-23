@@ -24,9 +24,6 @@ android {
 
     defaultConfig {
         multiDexEnabled false
-        applicationId appPackageName
-        //按不同维度打包，必须添加，不添加编译不通过，后面的数值任何字符串都可以
-        flavorDimensions "CHANNEL"
         signingConfigs {
             //直接使用真实的密钥库文件，避免微信、高德地图等第三方SDK校验失败
             releaseConfig {
@@ -70,18 +67,32 @@ android {
                 }
             }
         }
+        applicationId appPackageName
+        versionCode new Date().format("yyyyMMdd") as int
+        versionName new Date().format("yyyy.M.d") as String
+        //按不同维度打包，必须添加，不添加编译不通过，后面的数值任何字符串都可以
+        flavorDimensions "MODE"
         manifestPlaceholders = [
-                MY_CHANNEL: "developer-default",
+                MY_CHANNEL: "default",
         ]
+        buildConfigField "String", "BUILD_DATE", '"' + new Date().format("yyyy.MM.dd HH:mm:sss") + '"'
     }
 
     // 打包纬度，会按纬度名称字母顺序执行
     productFlavors {
-        developer {
-            dimension "CHANNEL"
+        publisher {
+            dimension "MODE"
             manifestPlaceholders = [
-                    MY_CHANNEL: "developer-product",
+                    MY_CHANNEL: "publisher",
             ]
+            buildConfigField "String", "ENVIRONMENT", '"pub"'
+        }
+        developer {
+            dimension "MODE"
+            manifestPlaceholders = [
+                    MY_CHANNEL: "developer",
+            ]
+            buildConfigField "String", "ENVIRONMENT", '"dev"'
         }
     }
 
@@ -147,8 +158,6 @@ android.applicationVariants.all { variant ->
                             from outputFile
                             into targetDir
                         }
-                        File copyOutputFile = new File(targetDir, outputFile.name)
-                        println "copyOutputFile=$copyOutputFile"
                     }
                 }
             }

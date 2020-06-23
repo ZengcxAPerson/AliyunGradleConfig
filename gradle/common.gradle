@@ -34,8 +34,12 @@ android {
 
     sourceSets {
         main {
-            //用于打包第三方SO库
-            jniLibs.srcDirs = ['libs']
+            manifest.srcFile 'src/main/AndroidManifest.xml'
+            res.srcDirs = ['src/main/res']
+            java.srcDirs = ['src/main/java']
+            assets.srcDirs = ['src/main/assets']
+            jniLibs.srcDirs = ['libs', 'src/main/jniLibs']
+            jni.srcDirs = ['cpp', 'jni', 'src/main/cpp', 'src/main/jni']
         }
     }
 

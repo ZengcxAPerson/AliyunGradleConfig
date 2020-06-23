@@ -11,22 +11,16 @@
  * See the Mulan PSL v1 for more details.
  *
  */
-package com.github.gzuliyujiang.demo;
 
-import android.os.Bundle;
+package com.github.gzuliyujiang.library;
 
-import androidx.appcompat.app.AppCompatActivity;
+/**
+ * Created by liyujiang on 2020/6/23.
+ */
+public class Test {
 
-import com.github.gzuliyujiang.logger.Logger;
-
-public class MainActivity extends AppCompatActivity {
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Logger.print("测试");
-        Logger.print(BuildConfig.BUILD_DATE);
+    public void main(String[] args) {
+        System.out.println("Hello World");
     }
 
 }
