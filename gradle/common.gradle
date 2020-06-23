@@ -23,7 +23,7 @@ android {
     compileSdkVersion androidCompileSdkVersion as int
     buildToolsVersion androidBuildToolsVersion
     // 配置资源名前缀提示，避免资源名重复
-    resourcePrefix rootProject.name
+    resourcePrefix project.name == 'app' ? '' : project.name
 
     defaultConfig {
         minSdkVersion androidMinSdkVersion as int
