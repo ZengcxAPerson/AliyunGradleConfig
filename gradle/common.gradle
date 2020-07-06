@@ -1,11 +1,14 @@
-project.configurations.all {
-    //此处可用于解决依赖冲突问题，参阅https://developer.android.google.cn/studio/build/dependencies#duplicate_classes
-    resolutionStrategy {
-        force "androidx.core:core:${androidxCoreVersion}"
-        force "androidx.lifecycle:lifecycle-runtime:${androidxLifecycleVersion}"
-        force "androidx.annotation:annotation:$androidxCoreVersion"
-        force "androidx.collection:collection:$androidxCoreVersion"
-        force "androidx.appcompat:appcompat:$androidxCoreVersion"
+configurations {
+    all {
+        //此处可用于解决依赖冲突问题，参阅https://developer.android.google.cn/studio/build/dependencies#duplicate_classes
+        resolutionStrategy {
+            force "androidx.core:core:${androidxCoreVersion}"
+            force "androidx.lifecycle:lifecycle-runtime:${androidxLifecycleVersion}"
+            force "androidx.annotation:annotation:$androidxCoreVersion"
+            force "androidx.collection:collection:$androidxCoreVersion"
+            force "androidx.appcompat:appcompat:$androidxCoreVersion"
+            force "androidx.recyclerview:recyclerview:1.0.0"
+        }
     }
 }
 
