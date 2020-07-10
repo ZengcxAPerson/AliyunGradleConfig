@@ -1,8 +1,10 @@
 # 安卓项目工程模板
 
-![Release APK](https://github.com/gzu-liyujiang/AliyunGradleConfig/workflows/Release%20APK/badge.svg) ![Gradle Package](https://github.com/gzu-liyujiang/AliyunGradleConfig/workflows/Gradle%20Package/badge.svg)
+![Release APK](https://github.com/gzu-liyujiang/AliyunGradleConfig/workflows/Release%20APK/badge.svg)
+![Gradle Package](https://github.com/gzu-liyujiang/AliyunGradleConfig/workflows/Gradle%20Package/badge.svg)
+[![jitpack](https://jitpack.io/v/gzu-liyujiang/AliyunGradleConfig.svg)](https://jitpack.io/#gzu-liyujiang/AliyunGradleConfig)
 
-详情可查看[模板介绍](https://gzu-liyujiang.github.io/AliyunGradleConfig/)
+详情可查看[模板介绍](https://gzu-liyujiang.github.io/AliyunGradleConfig)
 
 ## License
 
