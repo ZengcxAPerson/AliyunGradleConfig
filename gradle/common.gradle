@@ -7,7 +7,7 @@ configurations {
             force "androidx.annotation:annotation:$androidxCoreVersion"
             force "androidx.collection:collection:$androidxCoreVersion"
             force "androidx.appcompat:appcompat:$androidxCoreVersion"
-            force "androidx.recyclerview:recyclerview:1.0.0"
+            force "androidx.recyclerview:recyclerview:$recyclerViewVersion"
         }
     }
 }
