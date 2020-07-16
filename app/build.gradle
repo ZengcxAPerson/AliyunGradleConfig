@@ -15,8 +15,8 @@ android {
             reset()
             //支持的CPU架构：armeabi、armeabi-v7a、arm64-v8a、x86、x86_64、mips、mips64
             //目前主流手机都支持armeabi-v7a，armeabi已过时，arm64-v8a是未来的主流，电脑上的模拟器支持x86，mips基本不用于手机
-            include 'armeabi-v7a', 'x86'
-            universalApk false
+            include 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'
+            universalApk true
         }
     }
 
@@ -152,9 +152,8 @@ android.applicationVariants.all { variant ->
             return
         }
         if (outputFileName != null && outputFileName.endsWith(".apk")) {
-            def versionName = rootProject.getGitLatestTag();
-            def date = new Date().format("yyyyMMddHHmm", TimeZone.getTimeZone("GMT+08:00"))
-            String fileName = "${outputFile.name.replace('-release.apk', '')}-v${versionName}-${date}.apk"
+            def versionName = getGitLatestTag();
+            String fileName = "${outputFile.name.replace('-release.apk', '')}-v${versionName}.apk"
             //这里只能用相对路径，不然报错
             outputFileName = new File(fileName)
             println "outputFile=$outputFile"
