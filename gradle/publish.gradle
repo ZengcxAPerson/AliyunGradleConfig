@@ -35,6 +35,7 @@ def githubUsername = project.findProperty("githubUserName") ?: pomDeveloperId
 //1、在`https://github.com/settings/tokens`创建个人token，勾选包读写权限。
 //2、在`https://github.com/gzu-liyujiang/${rootProject.name}/settings/secrets`将token添加为secrets。
 //3、在GithubActions文件里添加`env:TOKEN: ${{ secrets.TOKEN }}`。
+//或者直接使用`${{ secrets.GITHUB_TOKEN }}`，参阅 https://docs.github.com/en/actions/configuring-and-managing-workflows/authenticating-with-the-github_token
 def githubToken = project.findProperty("githubToken") ?: System.getenv("TOKEN")
 println("github credentials: user=$githubUsername token=$githubToken")
 
