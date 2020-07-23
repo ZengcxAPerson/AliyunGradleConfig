@@ -6,7 +6,7 @@ configurations {
             force "androidx.lifecycle:lifecycle-runtime:${androidxLifecycleVersion}"
             force "androidx.annotation:annotation:$androidxCoreVersion"
             force "androidx.collection:collection:$androidxCoreVersion"
-            force "androidx.appcompat:appcompat:$androidxCoreVersion"
+            force "androidx.fragment:fragment:$androidxCoreVersion"
             force "androidx.recyclerview:recyclerview:$recyclerViewVersion"
         }
     }
@@ -32,7 +32,7 @@ android {
         minSdkVersion androidMinSdkVersion as int
         targetSdkVersion androidTargetSdkVersion as int
         versionCode gitGitCommitNumber()
-        versionName getGitLatestTag()
+        versionName getGitLatestTag() + '_' + getGitLatestCommitHashShort()
         println("versionCode: $versionCode\nversionName: $versionName")
         buildConfigField "String", "GIT_BRANCH", '"' + getGitBranch() + '"'
         buildConfigField "String", "GIT_LATEST_COMMIT_HASH", '"' + getGitLatestCommitHash() + '"'
