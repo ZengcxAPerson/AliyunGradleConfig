@@ -18,7 +18,7 @@ static def getGitLatestTag() {
     try {
         // See https://www.jianshu.com/p/1f81af606e41
         def cmd = 'git describe --tags'
-        return cmd.execute().text.trim() ?: "1.0.0"
+        return cmd.execute().text.trim() ?: '1.0.0-' + getGitLatestCommitHashShort()
     } catch (ignored) {
         return "error"
     }

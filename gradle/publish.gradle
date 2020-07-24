@@ -31,13 +31,13 @@ def pomDeveloperEmail = '1032694760@qq.com'
 //GitHub仓库信息
 def githubRepositoryOwner = pomDeveloperOrg
 def githubRepositoryName = pomLibArtifactId
-def githubUsername = project.findProperty("githubUserName") ?: pomDeveloperId
+def githubUserName = project.findProperty("githubUserName") ?: pomDeveloperId
 //1、在`https://github.com/settings/tokens`创建个人token，勾选包读写权限。
 //2、在`https://github.com/gzu-liyujiang/${rootProject.name}/settings/secrets`将token添加为secrets。
 //3、在GithubActions文件里添加`env:TOKEN: ${{ secrets.TOKEN }}`。
 //或者直接使用`${{ secrets.GITHUB_TOKEN }}`，参阅 https://docs.github.com/en/actions/configuring-and-managing-workflows/authenticating-with-the-github_token
 def githubToken = project.findProperty("githubToken") ?: System.getenv("TOKEN")
-println("github credentials: user=$githubUsername token=$githubToken")
+println("github credentials: user=$githubUserName token=$githubToken")
 
 // {USER_HOME}/.gradle/gradle.properties
 def bintrayUserName = project.findProperty('bintrayUserName') ?: ''
@@ -53,14 +53,21 @@ afterEvaluate {
     publishing {
         repositories {
             maven {
+                // 执行命令`gradlew publishReleasePublicationToGitHubRepository`
                 // See https://docs.github.com/en/packages/using-github-packages-with-your-projects-ecosystem/configuring-gradle-for-use-with-github-packages
                 // See https://docs.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets
-                name = 'GitHub Packages'
-                url = uri("https://maven.pkg.github.com/${githubRepositoryOwner}/${githubRepositoryName}")
+                name = 'GitHub'
+                url = "https://maven.pkg.github.com/${githubRepositoryOwner}/${githubRepositoryName}"
                 credentials {
-                    username = githubUsername
+                    username = githubUserName
                     password = githubToken
                 }
+            }
+            maven {
+                // 执行命令`gradlew publishReleasePublicationToLocalRepository`
+                name = 'Local'
+                // 可同步到`https://github.com/gzu-liyujiang/maven-repo`，通过`https://raw.githubusercontent.com/gzu-liyujiang/maven-repo/master`访问
+                url = file("../../maven-repo")
             }
         }
         publications {

@@ -27,12 +27,13 @@ android {
     buildToolsVersion androidBuildToolsVersion
     // 配置资源名前缀提示，避免资源名重复
     //resourcePrefix project.name == 'app' ? '' : project.name.toLowerCase() + '_'
-
+    ndkVersion androidNdkVersion
+	
     defaultConfig {
         minSdkVersion androidMinSdkVersion as int
         targetSdkVersion androidTargetSdkVersion as int
         versionCode gitGitCommitNumber()
-        versionName getGitLatestTag() + '_' + getGitLatestCommitHashShort()
+        versionName getGitLatestTag()
         println("versionCode: $versionCode\nversionName: $versionName")
         buildConfigField "String", "GIT_BRANCH", '"' + getGitBranch() + '"'
         buildConfigField "String", "GIT_LATEST_COMMIT_HASH", '"' + getGitLatestCommitHash() + '"'
