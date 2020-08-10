@@ -4,7 +4,7 @@ apply from: "${rootDir}/gradle/resguard.gradle"
 
 dependencies {
     implementation project(":library")
-    implementation "androidx.appcompat:appcompat:$androidxCoreVersion"
+    implementation "androidx.fragment:fragment:$fragmentVersion"
 }
 
 android {
