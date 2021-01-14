@@ -1,7 +1,7 @@
 @SuppressWarnings(["unused"])
 static def gitGitCommitNumber() {
     try {
-        // See https://www.jianshu.com/p/1f81af606e41
+        // See https://blog.csdn.net/liumeng920/article/details/51011251
         def cmd = 'git rev-list HEAD --first-parent --count'
         def integer = cmd.execute().text.trim().toInteger()
         if (integer < 1) {
@@ -9,16 +9,17 @@ static def gitGitCommitNumber() {
         }
         return integer
     } catch (ignored) {
-        return 0
+        return 1
     }
 }
 
 @SuppressWarnings(["unused"])
 static def getGitLatestTag() {
     try {
-        // See https://www.jianshu.com/p/1f81af606e41
-        def cmd = 'git describe --tags'
-        return cmd.execute().text.trim() ?: '1.0.0-' + getGitLatestCommitHashShort()
+        // See https://www.jianshu.com/p/2ecfd791c464
+        // git describe --tags --abbrev=0
+        def cmd = 'git describe --tags --always --dirty="-developing"'
+        return cmd.execute().text.trim() ?: '1.0.0'
     } catch (ignored) {
         return "error"
     }
@@ -28,6 +29,7 @@ static def getGitLatestTag() {
 static def getGitBranch() {
     try {
         // See https://www.jianshu.com/p/1f81af606e41
+        // git branch --contains
         def cmd = 'git symbolic-ref --short -q HEAD'
         return cmd.execute().text.trim() ?: "unknown"
     } catch (ignored) {

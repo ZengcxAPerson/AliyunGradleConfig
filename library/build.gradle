@@ -1,15 +1,5 @@
-apply plugin: 'com.android.library'
-apply from: "${rootDir}/gradle/common.gradle"
-apply from: "${rootDir}/gradle/publish.gradle"
+apply from: "${rootDir}/gradle/library.gradle"
 
 dependencies {
     // implementation third-party library
-}
-
-android {
-
-    defaultConfig {
-        consumerProguardFiles 'consumer-rules.pro'
-    }
-
 }

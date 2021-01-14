@@ -9,13 +9,16 @@
 
 ### 项目模板文件介绍
 
-- .github/workflows/gradle-publish.yml  基于GithubActions及GithubPackages进行打包发布
+- .github/workflows/gradle-publish.yml  基于GithubActions/GithubPackages进行打包发布
 - .gitignore  通用的GIT版本控制文件忽略规则
 - build.gradle 项目构建管理
 - gradle.properties 通用的项目配置
 - app/proguard-common.pro  通用的混淆规则
-- app/build.gradle 通用的APK打包
+- gradle/app.gradle 通用的APK打包配置
+- gradle/library.gradle 通用的库项目配置
+- gradle/config.gradle 第三方依赖管理
 - gradle/common.gradle 通用的项目配置
+- gradle/git.gradle 基于GIT进行版本号统一管理
 - gradle/publish.gradle 项目发布到Maven仓库及上传到jcenter
 - gradle/resguard.gradle 项目资源文件混淆配置管理
 
@@ -110,7 +113,7 @@ allprojects {
 //项目相关信息
 def includeJar = false
 def pomLibGroupName = 'com.github.gzuliyujiang'
-def pomLibArtifactId = rootProject.name
+def pomLibArtifactId = project.name
 def pomLibVersion = rootProject.getGitLatestTag()
 def pomLibDescription = "TODO description: ${rootProject.name} for Android"
 def pomSiteUrl = "https://github.com/gzu-liyujiang/${rootProject.name}"
@@ -129,7 +132,7 @@ def pomDeveloperEmail = '1032694760@qq.com'
 ### License
 
 ```text
-Copyright (c) 2019-2020 gzu-liyujiang <1032694760@qq.com>
+Copyright (c) 2019-2021 gzu-liyujiang <1032694760@qq.com>
 
 The software is licensed under the Mulan PSL v1.
 You can use this software according to the terms and conditions of the Mulan PSL v1.

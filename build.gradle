@@ -1,15 +1,21 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
-apply from: "${rootDir}/gradle/git.gradle"
 
 buildscript {
+    apply from: "${rootDir}/gradle/git.gradle"
+    apply from: "${rootDir}/gradle/config.gradle"
     repositories {
         jcenter()
         google()
+        maven {
+            url 'https://developer.huawei.com/repo/'
+            name '华为云调试'
+        }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.0.1'
+        classpath 'com.android.tools.build:gradle:4.1.1'
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.5'
         classpath "com.tencent.mm:AndResGuard-gradle-plugin:${andResGuardVersion}"
+        classpath 'com.huawei.agconnect:agcp:1.4.1.300'
     }
 }
 

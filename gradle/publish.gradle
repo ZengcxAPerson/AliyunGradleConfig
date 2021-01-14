@@ -13,16 +13,16 @@ apply plugin: 'maven-publish'
 apply plugin: 'com.jfrog.bintray'
 
 //项目相关信息
-def includeJar = false
+def includeJar = true
 def pomLibGroupName = 'com.github.gzuliyujiang'
-def pomLibArtifactId = rootProject.name
+def pomLibArtifactId = project.name
 def pomLibVersion = getGitLatestTag()
 def pomLibDescription = "TODO description: ${rootProject.name} for Android"
 def pomSiteUrl = "https://github.com/gzu-liyujiang/${rootProject.name}"
 def pomGitUrl = "https://github.com/gzu-liyujiang/${rootProject.name}.git"
 def pomIssueUrl = "https://github.com/gzu-liyujiang/${rootProject.name}/issues"
 def pomReleaseNotesUrl = "https://github.com/gzu-liyujiang/${rootProject.name}/README.md"
-def pomLicenses = ["Apache License 2.0", "Mulan PSL v1"]
+def pomLicenses = ["Apache License 2.0", "Mulan PSL v2"]
 //开发者信息
 def pomDeveloperId = 'liyujiang-gzu'
 def pomDeveloperOrg = 'gzu-liyujiang'
@@ -30,7 +30,7 @@ def pomDeveloperName = '李玉江'
 def pomDeveloperEmail = '1032694760@qq.com'
 //GitHub仓库信息
 def githubRepositoryOwner = pomDeveloperOrg
-def githubRepositoryName = pomLibArtifactId
+def githubRepositoryName = rootProject.name
 def githubUserName = project.findProperty("githubUserName") ?: pomDeveloperId
 //1、在`https://github.com/settings/tokens`创建个人token，勾选包读写权限。
 //2、在`https://github.com/gzu-liyujiang/${rootProject.name}/settings/secrets`将token添加为secrets。
@@ -67,7 +67,7 @@ afterEvaluate {
                 // 执行命令`gradlew publishReleasePublicationToLocalRepository`
                 name = 'Local'
                 // 可同步到`https://github.com/gzu-liyujiang/maven-repo`，通过`https://raw.githubusercontent.com/gzu-liyujiang/maven-repo/master`访问
-                url = file("../../maven-repo")
+                url = rootProject.file("归档")
             }
         }
         publications {
