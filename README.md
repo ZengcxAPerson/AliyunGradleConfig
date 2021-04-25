@@ -2,7 +2,6 @@
 
 ![Release APK](https://github.com/gzu-liyujiang/AliyunGradleConfig/workflows/Release%20APK/badge.svg)
 ![Gradle Package](https://github.com/gzu-liyujiang/AliyunGradleConfig/workflows/Gradle%20Package/badge.svg)
-[![jitpack](https://jitpack.io/v/gzu-liyujiang/AliyunGradleConfig.svg)](https://jitpack.io/#gzu-liyujiang/AliyunGradleConfig)
 
 详情可查看[模板介绍](https://gzu-liyujiang.github.io/AliyunGradleConfig)
 
@@ -30,34 +29,35 @@
 
 ### 组件化开发的实施步骤
 
-- 1、在接口层（`contract`），每个业务模块（如`umeng`）定义相关接口（如`UMengSDKContract`）并继承自`IContract`约定好要对外提供的方法。
+- 1、在接口层（`contract`），每个业务模块（如统计分析）定义相关接口（如`StatisticContract`）并继承自`IContract`约定好要对外提供的方法。
 
 ```java
-public interface UMengSDKContract extends IContract {
+public interface StatisticContract extends IContract {
 //省略...
 }
 ```
 
-- 2、业务组件（如`umeng`）依赖接口层（`contract`），实现其对外提供的方法（如`UMengSDKContractImpl`），同时通过`ContractImpl`注解为`UMengSDKContract`指定该实现类。
+- 2、具体的业务组件如友盟统计（`umeng`）依赖接口层（`contract`），对约定的接口进行实现（如`UMengImpl`），同时通过注解`ContractImpl`为`StatisticContract`指定该实现类。若在将来要更换成极光统计（`jiguang`），则重新指定实现类即可。
 
 ```groovy
 implementation project(':contract')
 ```
 ```java
-@ContractImpl(className = "com.github.gzuliyujiang.umeng.UMengSDKContractImpl")
-public interface UMengSDKContract extends IContract {
+@ContractImpl(className = "com.github.gzuliyujiang.umeng.UMengImpl")
+//@ContractImpl(className = "com.github.gzuliyujiang.umeng.JiGuangImpl")
+public interface StatisticContract extends IContract {
 //省略...
 }
 ```
 
-- 3、其他使用方都依赖接口层（`contract`），且具体的业务模块（如`umeng`）必须通过`runtimeOnly`进行代码隔离，并通过接口管理器（`ContractMaster`）获取所需的接口（如`UMengSDKContract`）使用。
+- 3、其他使用方都依赖接口层（`contract`），且具体的业务模块（如`umeng`）必须通过`runtimeOnly`进行代码隔离，并通过接口管理器（`ContractMaster`）获取所需的接口（如`StatisticContract`）使用。
 
 ```groovy
 implementation project(':contract')
 runtimeOnly project(':umeng')
 ```
 ```groovy
-ContractMaster.get(UMengSDKContract.class)
+ContractMaster.get(StatisticContract.class)
 ```
 
 ## 设计模式：MVVM
