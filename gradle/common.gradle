@@ -1,19 +1,7 @@
 /*
- * Copyright (c) 2013-present, 贵州纳雍穿青人李裕江 <1032694760@qq.com>, All Right Reserved.
+ * Copyright (c) 2016-present, 贵州纳雍穿青人李裕江<1032694760@qq.com>, All Right Reserved.
+ *
  */
-
-configurations {
-    all {
-        //此处可用于解决依赖冲突问题，参阅https://developer.android.google.cn/studio/build/dependencies#duplicate_classes
-        resolutionStrategy {
-            force androidxLibrary.core
-            force androidxLibrary.lifecycle
-            force androidxLibrary.fragment
-            force androidxLibrary.recyclerview
-            force androidxLibrary.documentfile
-        }
-    }
-}
 
 android {
 
@@ -52,7 +40,8 @@ android {
     lintOptions {
         checkReleaseBuilds false
         abortOnError false
-        disable 'InvalidPackage'
+        // 执行命令 `${ANDROID_SDK_HOME}/tools/bin/lint --list` 查看可用的ID
+        disable 'InvalidPackage', 'HardcodedText', 'SmallSp', 'ContentDescription', 'AddJavascriptInterface'
     }
 
     compileOptions {
@@ -81,10 +70,6 @@ android {
         exclude 'androidsupportmultidexversion.txt'
         exclude 'LICENSE*'
         exclude 'junit/*/*'
-        exclude 'publicsuffixes.gz'
-        exclude 'okhttp3/internal/publicsuffix/publicsuffixes.gz'
-        //exclude 'assets/libwbsafeedit_x86'
-        //exclude 'assets/libwbsafeedit_x86_64'
     }
 
 }

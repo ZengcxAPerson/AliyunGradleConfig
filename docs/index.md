@@ -16,8 +16,9 @@
 - app/proguard-common.pro  通用的混淆规则
 - gradle/app.gradle 通用的APK打包配置
 - gradle/library.gradle 通用的库项目配置
-- gradle/config.gradle 第三方依赖管理
+- gradle/config.gradle 构建配置
 - gradle/common.gradle 通用的项目配置
+- gradle/dependency.gradle 第三方依赖管理
 - gradle/git.gradle 基于GIT进行版本号统一管理
 - gradle/publish.gradle 项目发布到Maven仓库及上传到jcenter
 - gradle/resguard.gradle 项目资源文件混淆配置管理

@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016-present, 贵州纳雍穿青人李裕江<1032694760@qq.com>, All Right Reserved.
+ *
+ */
+
 // See https://github.com/bintray/gradle-bintray-plugin
 //
 // 步骤一：打包到{USER_HOME}/.m2/repository
@@ -13,7 +18,8 @@ apply plugin: 'maven-publish'
 apply plugin: 'com.jfrog.bintray'
 
 //项目相关信息
-def includeJar = true
+def includeJar = false
+def includeDoc = false
 def pomLibGroupName = 'com.github.gzuliyujiang'
 def pomLibArtifactId = project.name
 def pomLibVersion = getGitLatestTag()
@@ -30,23 +36,57 @@ def pomDeveloperName = '李玉江'
 def pomDeveloperEmail = '1032694760@qq.com'
 //GitHub仓库信息
 def githubRepositoryOwner = pomDeveloperOrg
-def githubRepositoryName = rootProject.name
+def githubRepositoryName = pomLibArtifactId
 def githubUserName = project.findProperty("githubUserName") ?: pomDeveloperId
 //1、在`https://github.com/settings/tokens`创建个人token，勾选包读写权限。
 //2、在`https://github.com/gzu-liyujiang/${rootProject.name}/settings/secrets`将token添加为secrets。
 //3、在GithubActions文件里添加`env:TOKEN: ${{ secrets.TOKEN }}`。
 //或者直接使用`${{ secrets.GITHUB_TOKEN }}`，参阅 https://docs.github.com/en/actions/configuring-and-managing-workflows/authenticating-with-the-github_token
 def githubToken = project.findProperty("githubToken") ?: System.getenv("TOKEN")
-println("github credentials: user=$githubUserName token=$githubToken")
+println("github credentials: user=$githubUserName")
 
 // {USER_HOME}/.gradle/gradle.properties
 def bintrayUserName = project.findProperty('bintrayUserName') ?: ''
 def bintrayApiKey = project.findProperty('bintrayApiKey') ?: ''
-println("bintray credentials: user=$bintrayUserName apikey=$bintrayApiKey")
+println("bintray credentials: user=$bintrayUserName")
 
+/**
+ * generate xxx-sources.jar
+ */
 task sourcesJar(type: Jar) {
     getArchiveClassifier().set('sources')
     from android.sourceSets.main.java.srcDirs
+}
+
+/**
+ * generate javadoc
+ */
+task javadoc(type: Javadoc) {
+    source android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    exclude '**/BuildConfig.java'
+    exclude '**/R.java'
+    failOnError false
+}
+
+/**
+ * generate xxx-javadoc.jar
+ */
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    getArchiveClassifier().set('javadoc')
+    from javadoc.destinationDir
+}
+
+/**
+ * javadoc configure
+ */
+javadoc {
+    options {
+        encoding "UTF-8"
+        charSet 'UTF-8'
+        author true
+        version true
+    }
 }
 
 afterEvaluate {
@@ -73,7 +113,11 @@ afterEvaluate {
         publications {
             // See https://developer.android.google.cn/studio/build/maven-publish-plugin
             release(MavenPublication) {
-                from components.release
+                try {
+                    from components.release
+                } catch (e) {
+                    e.printStackTrace()
+                }
                 group = pomLibGroupName
                 version = pomLibVersion
                 description = pomLibDescription
@@ -82,6 +126,9 @@ afterEvaluate {
                     artifact "${buildDir}/intermediates/aar_main_jar/release/classes.jar"
                 }
                 artifact sourcesJar
+                if (includeDoc) {
+                    artifact javadocJar
+                }
                 pom.withXml {
                     def root = asNode()
                     root.appendNode('name', pomLibArtifactId)
