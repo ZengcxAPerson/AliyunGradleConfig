@@ -27,13 +27,28 @@
 - 便于协作：每个开发人员只关心自己负责的模块/组件，每个模块/组件作为一个子工程，没有太多的耦合。
 - 便于维护：各模块/组件管理自己的代码、布局、资源，主工程可以方便添加与移除。
 
+
 ### 组件化开发的实施步骤
 
 - 1、在接口层（`contract`），每个业务模块（如统计分析）定义相关接口（如`StatisticContract`）并继承自`IContract`约定好要对外提供的方法。
 
 ```java
+/**
+ * 接口约定，用于通过注解技术反射获取接口的实例
+ */
+public interface IContract {
+
+}
+```
+```java
 public interface StatisticContract extends IContract {
-//省略...
+
+    void setup(@NonNull Application application, @NonNull String appKey, @NonNull String channel,
+               boolean agreeEulaOrPolicy, boolean isRelease);
+
+    void onEvent(@NonNull String eventID, @NonNull Map<String, Object> map);
+
+    //省略...
 }
 ```
 
@@ -43,8 +58,18 @@ public interface StatisticContract extends IContract {
 implementation project(':contract')
 ```
 ```java
+/**
+ * 用于指定接口的实现类
+ */
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
+public @interface ContractImpl {
+    String className();
+}
+```
+```java
 @ContractImpl(className = "com.github.gzuliyujiang.umeng.UMengImpl")
-//@ContractImpl(className = "com.github.gzuliyujiang.umeng.JiGuangImpl")
+//@ContractImpl(className = "com.github.gzuliyujiang.jiguang.JiGuangImpl")
 public interface StatisticContract extends IContract {
 //省略...
 }
@@ -55,6 +80,20 @@ public interface StatisticContract extends IContract {
 ```groovy
 implementation project(':contract')
 runtimeOnly project(':umeng')
+//runtimeOnly project(':jiguang')
+```
+```java
+/**
+ * 通过“注解+反射”获取指定接口的实例
+ */
+public final class ContractMaster {
+
+    @NonNull
+    public static <T extends IContract> T get(@NonNull Class<T> contract) {
+        //省略...
+    }
+
+}
 ```
 ```groovy
 ContractMaster.get(StatisticContract.class)
