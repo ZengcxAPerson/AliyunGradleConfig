@@ -176,7 +176,7 @@ android.applicationVariants.all { variant ->
             return
         }
         if (outputFileName != null && outputFileName.endsWith(".apk")) {
-            def versionName = getGitLatestTag();
+            def versionName = getGitLatestTag()
             // 命名格式“app_[版本号]_[其他信息].apk”
             String fileName = "app_${versionName}_${outputFile.name.replace('app-', '').replace('.apk', '')}-${versionCode}.apk"
             //这里只能用相对路径，不然报错
@@ -193,7 +193,7 @@ android.applicationVariants.all { variant ->
         if (maybeNeedCopy) {
             it.doLast {
                 variant.outputs.each { output ->
-                    File outputFile = output.outputFile;
+                    File outputFile = output.outputFile
                     if (outputFile != null && outputFile.name.endsWith('.apk') && variant.buildType.name == 'release') {
                         File targetDir = rootProject.file("归档")
                         targetDir.mkdirs()
