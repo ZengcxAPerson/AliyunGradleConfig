@@ -121,7 +121,7 @@ android {
         pub {
             dimension "MODE"
             // 服务端接口地址
-            buildConfigField "String", "API_BASE_URL", '"https://api.xmofun.com/renren-api"'
+            buildConfigField "String", "API_BASE_URL", '"https://api.example.com"'
             // 修改 AndroidManifest.xml 里的变量
             manifestPlaceholders = [
                     MY_CHANNEL: "publisher-default",
@@ -131,7 +131,7 @@ android {
         dev {
             dimension "MODE"
             // 服务端接口地址
-            buildConfigField "String", "API_BASE_URL", '"https://test.xmofun.com/renren-api"'
+            buildConfigField "String", "API_BASE_URL", '"https://test.example.com"'
             // 修改 AndroidManifest.xml 里的变量
             manifestPlaceholders = [
                     MY_CHANNEL: "developer-default",
