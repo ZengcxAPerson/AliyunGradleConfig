@@ -1,5 +1,14 @@
 /*
- * Copyright (c) 2016-present, 贵州纳雍穿青人李裕江<1032694760@qq.com>, All Right Reserved.
+ * Copyright (c) 2019-2021 gzu-liyujiang <1032694760@qq.com>
+ *
+ * The software is licensed under the Mulan PSL v2.
+ * You can use this software according to the terms and conditions of the Mulan PSL v2.
+ * You may obtain a copy of Mulan PSL v2 at:
+ *     http://license.coscl.org.cn/MulanPSL2
+ * THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT, MERCHANTABILITY OR FIT FOR A PARTICULAR
+ * PURPOSE.
+ * See the Mulan PSL v2 for more details.
  *
  */
 
@@ -168,7 +177,8 @@ android.applicationVariants.all { variant ->
         }
         if (outputFileName != null && outputFileName.endsWith(".apk")) {
             def versionName = getGitLatestTag();
-            String fileName = "${outputFile.name.replace('-release.apk', '')}-v${versionName}-${versionCode}.apk"
+            // 命名格式“app_[版本号]_[其他信息].apk”
+            String fileName = "app_${versionName}_${outputFile.name.replace('app-', '').replace('.apk', '')}-${versionCode}.apk"
             //这里只能用相对路径，不然报错
             outputFileName = new File(fileName)
             println "outputFile=$outputFile"
