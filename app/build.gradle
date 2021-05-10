@@ -9,7 +9,6 @@ dependencies {
     implementation project(":library")
     implementation androidxLibrary.fragment
     debugRuntimeOnly library.logger
-    implementation "com.github.gzu-liyujiang:Logger:1.2.2"
 }
 
 android {
