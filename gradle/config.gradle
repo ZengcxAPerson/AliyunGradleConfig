@@ -1,6 +1,5 @@
 /*
  * Copyright (c) 2016-present, 贵州纳雍穿青人李裕江<1032694760@qq.com>, All Right Reserved.
- *
  */
 
 ext {
@@ -10,7 +9,7 @@ ext {
     // Android 11.0
     targetSdkVersion = 30
     compileSdkVersion = 30
-    buildToolsVersion = '30.0.0'
+    buildToolsVersion = '30.0.2'
     //启用x86架构支持（模拟器运行时需要）
     enableX86Support = true
     //发布包是否混淆Java代码
