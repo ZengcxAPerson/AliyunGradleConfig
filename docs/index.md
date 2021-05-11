@@ -44,7 +44,7 @@ allprojects {
         maven { url 'https://maven.aliyun.com/repositories/jcenter' }
         maven { url 'https://maven.aliyun.com/repositories/google' }
         maven { url 'https://maven.aliyun.com/repository/central' }
-        maven { url "https://jitpack.io" }
+        maven { url "https://www.jitpack.io" }
     }
 }
 
@@ -59,8 +59,8 @@ allprojects {
         <th> 使用地址</th>
     </tr>
     <tr>
-        <td>jcenter</td>
-        <td>JFrog公司提供的仓库</td>
+        <td>~~jcenter~~</td>
+        <td>JFrog公司提供的仓库（已宣称2022年初停止服务）</td>
         <td align="left">http://jcenter.bintray.com</td>
         <td align="left">https://maven.aliyun.com/repository/jcenter <br/> https://maven.aliyun.com/nexus/content/repositories/jcenter</td>
     </tr>
@@ -107,24 +107,22 @@ allprojects {
 手动执行命令`gradlew publishToMavenLocal`可以发布到`mavenLocal()`，手动执行命令`gradlew bintrayUpload`可以发布到`jcenter()`。项目发布到`jitpack`前，需要基于某个`git commit`创建相应发布版本的`tag`，推送该`tag`才会触发`jitpack`的构建。
 
 - 项目发布到`jitpack`，需要使用github账号[登录到JitPack](https://jitpack.io)，`Look up`相应的库然后去`Get it`。
-- 项目发布到`jcenter`，需要[登录到Bintray](https://bintray.com/login)后选择`maven`创建相应应的包(Add a Package)。
+- ~~项目发布到`jcenter`，需要[登录到Bintray](https://bintray.com/login)后选择`maven`创建相应应的包(Add a Package)。~~
 - 修改`publish.gradle`中的以下下信息为您自己的：
 
 ```groovy
 //项目相关信息
 def includeJar = false
+def includeDoc = false
+def includeSrc = false
 def pomLibGroupName = 'com.github.gzuliyujiang'
 def pomLibArtifactId = project.name
-def pomLibVersion = rootProject.getGitLatestTag()
+def pomLibVersion = getGitLatestTag()
 def pomLibDescription = "TODO description: ${rootProject.name} for Android"
-def pomSiteUrl = "https://github.com/gzu-liyujiang/${rootProject.name}"
-def pomGitUrl = "https://github.com/gzu-liyujiang/${rootProject.name}.git"
-def pomIssueUrl = "https://github.com/gzu-liyujiang/${rootProject.name}/issues"
-def pomReleaseNotesUrl = "https://github.com/gzu-liyujiang/${rootProject.name}/README.md"
-def pomLicenses = ["Apache License 2.0", "Mulan PSL v1"]
+def pomSiteUrl = "https://gitee.com/li_yu_jiang/${rootProject.name}"
+def pomLicenses = ["Apache License 2.0", "Mulan PSL v2"]
 //开发者信息
 def pomDeveloperId = 'liyujiang-gzu'
-def pomDeveloperOrg = 'gzu-liyujiang'
 def pomDeveloperName = '李玉江'
 def pomDeveloperEmail = '1032694760@qq.com'
 ......
@@ -133,14 +131,14 @@ def pomDeveloperEmail = '1032694760@qq.com'
 ### License
 
 ```text
-Copyright (c) 2019-2021 gzu-liyujiang <1032694760@qq.com>
+Copyright (c) 2019-present 贵州纳雍穿青人李裕江 <1032694760@qq.com>
 
-The software is licensed under the Mulan PSL v1.
-You can use this software according to the terms and conditions of the Mulan PSL v1.
-You may obtain a copy of Mulan PSL v1 at:
-    http://license.coscl.org.cn/MulanPSL
-THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT, MERCHANTABILITY OR FIT FOR A PARTICULAR
-PURPOSE.
-See the Mulan PSL v1 for more details.
+The software is licensed under Mulan PSL v2.
+You can use this software according to the terms and conditions of the Mulan PSL v2.
+You may obtain a copy of Mulan PSL v2 at:
+         http://license.coscl.org.cn/MulanPSL2
+THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND,
+EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT,
+MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
+See the Mulan PSL v2 for more details.
 ```
