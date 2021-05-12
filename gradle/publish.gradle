@@ -20,13 +20,9 @@ def pomLibArtifactId = project.name
 def pomLibVersion = getGitLatestTag()
 def pomLibDescription = "TODO description: ${rootProject.name} for Android"
 def pomSiteUrl = "https://gitee.com/li_yu_jiang/${rootProject.name}"
-def pomGitUrl = "https://gitee.com/li_yu_jiang/${rootProject.name}.git"
-def pomIssueUrl = "https://gitee.com/li_yu_jiang/${rootProject.name}/issues"
-def pomReleaseNotesUrl = "https://gitee.com/li_yu_jiang/${rootProject.name}/README.md"
 def pomLicenses = ["Apache License 2.0", "Mulan PSL v2"]
 //开发者信息
 def pomDeveloperId = 'liyujiang-gzu'
-def pomDeveloperOrg = 'gzu-liyujiang'
 def pomDeveloperName = '李玉江'
 def pomDeveloperEmail = '1032694760@qq.com'
 
@@ -76,7 +72,7 @@ afterEvaluate {
             maven {
                 // 执行命令`gradlew publishReleasePublicationToLocalRepository`
                 name = 'Local'
-                // 可同步到`https://gitee.com/li_yu_jiang/maven-repo`
+                // 可同步到`https://gitee.com/li_yu_jiang/maven-repo`，通过`https://gitee.com/li_yu_jiang/maven-repo/raw/master`访问
                 url = rootProject.file("归档")
             }
         }
